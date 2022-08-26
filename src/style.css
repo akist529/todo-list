@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    display: grid;
+    grid-template: minmax(auto, 1fr) minmax(auto, 4fr) / minmax(auto, 1fr) minmax(auto, 4fr);
+    height: 100vh;
+}
+
+#content > div {
+    border: 2px solid black;
+    width: 1fr;
+    height: 1fr;
+    padding: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header {
+    grid-area: 1 / 1 / span 1 / span 2;
+}
+
+#sidebar {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+
+#list {
+    grid-area: 2 / 2 / span 1 / span 1;
+}
