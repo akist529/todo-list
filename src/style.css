@@ -3,14 +3,22 @@
     padding: 0;
 }
 
+.border {
+    width: 500px;
+}
+
+.border-active {
+    cursor: col-resize;
+}
+
 #content {
     display: grid;
-    grid-template: minmax(auto, 1fr) minmax(auto, 4fr) / minmax(auto, 1fr) minmax(auto, 4fr);
+    grid-template: minmax(auto, 1fr) minmax(auto, 4fr) / minmax(auto, 1fr) minmax(auto, 100%);
     height: 100vh;
 }
 
 #content > div {
-    border: 2px solid black;
+    border: 1px solid black;
     width: 1fr;
     height: 1fr;
     padding: 20px;
@@ -26,6 +34,10 @@
 
 #sidebar {
     grid-area: 2 / 1 / span 1 / span 1;
+    min-width: 20px;
+
+    resize: horizontal;
+    overflow: hidden;
 }
 
 #list {
