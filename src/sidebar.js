@@ -1,7 +1,6 @@
 export default function Sidebar() {
     const sidebar = document.createElement("div");
     sidebar.id = "sidebar";
-    sidebar.className = "sidebar";
     const sidebarTitle = document.createElement("h1");
     sidebarTitle.textContent = "SIDEBAR";
     sidebar.appendChild(sidebarTitle);
