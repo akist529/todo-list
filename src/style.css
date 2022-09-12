@@ -1,10 +1,16 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-color: lightgrey;
+}
+
+.login-field {
+    display: flex;
+    justify-content: space-between;
 }
 
 #content {
@@ -12,11 +18,14 @@ body {
     grid-template-rows: 1fr 2px 4fr;
     grid-template-columns: 1fr 2px 4fr;
     height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 0;
 }
 
 #content > div {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -32,6 +41,9 @@ body {
     animation: header-spawn;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+
+    display: flex;
+    justify-content: space-around;
 }
 
 @keyframes header-spawn {
@@ -42,6 +54,51 @@ body {
     } 100% {
         transform: translateY(0px);
     }
+}
+
+#login-screen {
+    background-color: rgba(0, 0, 0, 0.5);
+
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: login-spawn;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes login-spawn {
+    0% {
+        opacity: 0%;
+    } 100% {
+        opacity: 100%;
+    }
+}
+
+#login-prompt {
+    background-color: white;
+
+    height: 33vh;
+    min-height: 250px;
+    width: 50vw;
+    min-width: 500px;
+
+    animation: header-spawn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 #sidebar {
