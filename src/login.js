@@ -7,7 +7,7 @@ export default function Login() {
 
     const loginHeader = document.createElement("h1");
     loginHeader.setAttribute("id", "login-header");
-    loginHeader.textContent = "Sign in to Do It";
+    loginHeader.textContent = "Sign in to Do_It";
     loginPrompt.appendChild(loginHeader);
 
     const form = document.createElement("form");
@@ -44,8 +44,12 @@ export default function Login() {
     loginSubmit.setAttribute("type", "submit");
     loginSubmit.setAttribute("value", "LOG IN");
     form.appendChild(loginSubmit);
-
     loginPrompt.appendChild(form);
+
+    const createAccount = document.createElement("p");
+    createAccount.innerHTML = "New user? Create an account here!";
+    loginPrompt.appendChild(createAccount);
+
     loginScreen.appendChild(loginPrompt);
 
     document.getElementById("login-button").addEventListener("click", function() {
