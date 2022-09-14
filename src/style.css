@@ -1,10 +1,58 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url("https://fonts.googleapis.com/css?family=Antonio");
+@import url("https://fonts.googleapis.com/css?family=Karla");
+
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Karla";
 }
 
 body {
     background-color: lightgrey;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    gap: 10px;
+}
+
+.header-button {
+    border: none;
+    border-radius: 5px;
+
+    font-family: "Roboto Mono";
+    font-size: 1rem;
+
+    padding: 20px 40px;
+}
+
+.login-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgb(194, 27, 27);
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+
+    height: 50px;
+    width: 50px;
+
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 10px;
 }
 
 #content {
@@ -12,11 +60,14 @@ body {
     grid-template-rows: 1fr 2px 4fr;
     grid-template-columns: 1fr 2px 4fr;
     height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 0;
 }
 
 #content > div {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -32,6 +83,9 @@ body {
     animation: header-spawn;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+
+    display: flex;
+    justify-content: space-around;
 }
 
 @keyframes header-spawn {
@@ -42,6 +96,70 @@ body {
     } 100% {
         transform: translateY(0px);
     }
+}
+
+#header-title {
+    font-size: 4rem;
+}
+
+#header-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+#menu-button {
+    padding: 20px 40px;
+    transition: 0.25s;
+}
+
+#menu-button:hover {
+    padding: 20px 120px;
+    transition: 0.25s;
+}
+
+#login-screen {
+    background-color: rgba(0, 0, 0, 0.5);
+
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: login-spawn;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes login-spawn {
+    0% {
+        opacity: 0%;
+    } 100% {
+        opacity: 100%;
+    }
+}
+
+#login-prompt {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 5px 5px 20px #000000;
+
+    height: 250px;
+    width: 500px;
+
+    animation: header-spawn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 #sidebar {
