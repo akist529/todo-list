@@ -38,6 +38,23 @@ form {
     justify-content: space-between;
 }
 
+.button-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgb(194, 27, 27);
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+
+    height: 50px;
+    width: 50px;
+
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 10px;
+}
+
 #content {
     display: grid;
     grid-template-rows: 1fr 2px 4fr;

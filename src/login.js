@@ -50,12 +50,22 @@ export default function Login() {
     createAccount.innerHTML = "New user? Create an account here!";
     loginPrompt.appendChild(createAccount);
 
+    const close = document.createElement("button");
+    close.innerHTML = "X";
+    close.id = "close-login";
+    close.className = "button-close";
+    loginPrompt.appendChild(close);
+
     loginScreen.appendChild(loginPrompt);
 
     document.getElementById("login-button").addEventListener("click", function() {
         document.body.appendChild(loginScreen);
 
         document.getElementById("login-submit").addEventListener("click", function() {
+            document.getElementById("login-screen").remove();
+        });
+
+        document.getElementById("close-login").addEventListener("click", function() {
             document.getElementById("login-screen").remove();
         });
     });
