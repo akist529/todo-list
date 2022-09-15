@@ -184,9 +184,9 @@ form {
     animation-duration: 1s;
     animation-fill-mode: forwards;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    height: 50vh;
 }
 
 @keyframes sidebar-spawn {
@@ -199,6 +199,14 @@ form {
     100% {
         transform: translateX(0px);
     }
+}
+
+#sidebar-projects {
+    grid-row: 5 / 6;
+}
+
+#sidebar-add {
+    grid-row: 6 / 7;
 }
 
 #list-wrapper {
