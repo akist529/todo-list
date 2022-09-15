@@ -51,6 +51,7 @@ export default function Sidebar() {
 
     const projectsPic = document.createElement("img");
     projectsPic.setAttribute("src", "../src/images/chevron_right.png");
+    projectsPic.setAttribute("id", "projects-pic");
     projects.appendChild(projectsPic);
 
     const projectsText = document.createElement("h3");
@@ -74,4 +75,15 @@ export default function Sidebar() {
 
     
     document.getElementById("content").appendChild(sidebar);
+
+    document.getElementById("sidebar-projects").addEventListener("click", function() {
+        const state = document.getElementById("projects-pic").src;
+        const regEx = /expand.png$/;
+
+        if (regEx.test(state)) {
+            document.getElementById("projects-pic").setAttribute("src", "../src/images/chevron_right.png");
+        } else {
+            document.getElementById("projects-pic").setAttribute("src", "../src/images/expand.png");
+        }
+    });
 }

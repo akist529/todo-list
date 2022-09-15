@@ -220,6 +220,10 @@ form {
     animation: list-spawn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #list {
