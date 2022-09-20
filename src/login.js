@@ -14,7 +14,7 @@ export default function Login() {
     form.setAttribute("action", "");
 
     const logName = document.createElement("div");
-    logName.className = "login-field";
+    logName.className = "input-field";
 
     const nameLabel = document.createElement("label");
     nameLabel.textContent = "Name:";

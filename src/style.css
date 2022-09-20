@@ -33,7 +33,7 @@ form {
     padding: 20px 40px;
 }
 
-.login-field {
+.input-field {
     display: flex;
     justify-content: space-between;
 }
@@ -125,7 +125,8 @@ form {
     transition: 0.25s;
 }
 
-#login-screen {
+#login-screen,
+#proj-screen {
     background-color: rgba(0, 0, 0, 0.5);
 
     height: 100vh;
@@ -138,12 +139,12 @@ form {
     justify-content: center;
     align-items: center;
 
-    animation: login-spawn;
+    animation: prompt-spawn;
     animation-duration: 0.25s;
     animation-fill-mode: forwards;
 }
 
-@keyframes login-spawn {
+@keyframes prompt-spawn {
     0% {
         opacity: 0%;
     } 100% {
@@ -151,7 +152,8 @@ form {
     }
 }
 
-#login-prompt {
+#login-prompt,
+#proj-prompt {
     background-color: white;
     border-radius: 25px;
     box-shadow: 5px 5px 20px #000000;
