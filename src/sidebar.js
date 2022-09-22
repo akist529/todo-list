@@ -59,6 +59,10 @@ export default function Sidebar() {
     projects.appendChild(projectsText);
     sidebar.appendChild(projects);
 
+    const projectsList = document.createElement("div");
+    projectsList.setAttribute("id", "projects-list");
+    sidebar.appendChild(projectsList);
+
 
     const addProj = document.createElement("button");
     addProj.setAttribute("id", "sidebar-add");
@@ -73,7 +77,6 @@ export default function Sidebar() {
     addProj.appendChild(addProjText);
     sidebar.appendChild(addProj);
 
-    
     document.getElementById("content").appendChild(sidebar);
 
     document.getElementById("sidebar-projects").addEventListener("click", function() {

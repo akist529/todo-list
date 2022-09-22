@@ -17,6 +17,7 @@ export default function Project() {
     logProj.appendChild(projLabel);
 
     const projField = document.createElement("input");
+    projField.setAttribute("id", "proj-name");
     projField.setAttribute("name", "proj-name");
     logProj.appendChild(projField);
     form.appendChild(logProj);
@@ -33,13 +34,22 @@ export default function Project() {
     close.id = "close-proj";
     close.className = "button-close";
     projPrompt.appendChild(close);
-
     projScreen.appendChild(projPrompt);
 
     document.getElementById("sidebar-add").addEventListener("click", function() {
         document.body.appendChild(projScreen);
 
-        document.getElementById("proj-submit").addEventListener("click", function() {
+        document.getElementById("proj-submit").addEventListener("click", function(e) {
+            e.preventDefault();
+
+            const newProj = document.createElement("button");
+            newProj.setAttribute("id", document.getElementById("proj-name").value);
+            newProj.setAttribute("class", "proj-item");
+            newProj.innerHTML = projID;
+
+            const projectsList = document.getElementById("projects-list");
+            projectsList.appendChild(newProj);
+
             document.getElementById("proj-screen").remove();
         });
 
