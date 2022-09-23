@@ -1,1 +1,1 @@
-# todo-list
+# A comprehensive to-do app allowing users to create projects with individual tasks. Includes log-in functionality and collaborative features (such as inviting others to view a given project and assigning tasks to certain individuals). 
