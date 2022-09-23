@@ -14,7 +14,7 @@ export default function Login() {
     form.setAttribute("action", "");
 
     const logName = document.createElement("div");
-    logName.className = "login-field";
+    logName.className = "input-field";
 
     const nameLabel = document.createElement("label");
     nameLabel.textContent = "Name:";
@@ -22,6 +22,7 @@ export default function Login() {
     logName.appendChild(nameLabel);
 
     const nameField = document.createElement("input");
+    nameField.setAttribute("id", "login-name");
     nameField.setAttribute("name", "login-name");
     logName.appendChild(nameField);
     form.appendChild(logName);
@@ -35,6 +36,7 @@ export default function Login() {
     logPass.appendChild(passLabel);
 
     const passField = document.createElement("input");
+    passField.setAttribute("id", "login-pass");
     passField.setAttribute("name", "login-pass");
     logPass.appendChild(passField);
     form.appendChild(logPass);
@@ -61,11 +63,17 @@ export default function Login() {
     document.getElementById("login-button").addEventListener("click", function() {
         document.body.appendChild(loginScreen);
 
-        document.getElementById("login-submit").addEventListener("click", function() {
+        document.getElementById("login-submit").addEventListener("click", function(e) {
+            e.preventDefault();
+
+            document.getElementById("login-name").value = "";
+            document.getElementById("login-pass").value = "";
             document.getElementById("login-screen").remove();
         });
 
         document.getElementById("close-login").addEventListener("click", function() {
+            document.getElementById("login-name").value = "";
+            document.getElementById("login-pass").value = "";
             document.getElementById("login-screen").remove();
         });
     });
