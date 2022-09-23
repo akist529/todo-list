@@ -8,7 +8,7 @@ export default function Sidebar() {
     inbox.setAttribute("class", "sidebar-line");
 
     const inboxPic = document.createElement("img");
-    inboxPic.setAttribute("src", "../src/images/timeline.png");
+    inboxPic.setAttribute("src", "../src/images/inbox.png");
     inbox.appendChild(inboxPic);
 
     const inboxText = document.createElement("h3");
@@ -50,7 +50,7 @@ export default function Sidebar() {
     projects.setAttribute("class", "sidebar-line");
 
     const projectsPic = document.createElement("img");
-    projectsPic.setAttribute("src", "../src/images/chevron_right.png");
+    projectsPic.setAttribute("src", "../src/images/arrow_circle_right.png");
     projectsPic.setAttribute("id", "projects-pic");
     projects.appendChild(projectsPic);
 
@@ -69,7 +69,7 @@ export default function Sidebar() {
     addProj.setAttribute("class", "sidebar-line");
 
     const addProjPic = document.createElement("img");
-    addProjPic.setAttribute("src", "../src/images/folder.png");
+    addProjPic.setAttribute("src", "../src/images/folder_new.png");
     addProj.appendChild(addProjPic);
 
     const addProjText = document.createElement("h3");
@@ -81,12 +81,14 @@ export default function Sidebar() {
 
     document.getElementById("sidebar-projects").addEventListener("click", function() {
         const state = document.getElementById("projects-pic").src;
-        const regEx = /expand.png$/;
+        const regEx = /expand_circle_down.png$/;
 
         if (regEx.test(state)) {
-            document.getElementById("projects-pic").setAttribute("src", "../src/images/chevron_right.png");
+            document.getElementById("projects-list").classList.add("projects-closed");
+            document.getElementById("projects-pic").setAttribute("src", "../src/images/arrow_circle_right.png");
         } else {
-            document.getElementById("projects-pic").setAttribute("src", "../src/images/expand.png");
+            document.getElementById("projects-list").classList.remove("projects-closed");
+            document.getElementById("projects-pic").setAttribute("src", "../src/images/expand_circle_down.png");
         }
     });
 }

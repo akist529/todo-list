@@ -21,7 +21,14 @@ export default function Header() {
     const loginButton = document.createElement("button");
     loginButton.id = "login-button";
     loginButton.className = "header-button";
-    loginButton.innerHTML = "Sign In";
+
+    const loginPic = document.createElement("img");
+    loginPic.setAttribute("src", "../src/images/account_circle.png");
+    loginButton.appendChild(loginPic);
+
+    const loginText = document.createElement("p");
+    loginText.textContent = "Sign In";
+    loginButton.appendChild(loginText);
     headerButtons.appendChild(loginButton);
 
     const menuImg = document.createElement("img");

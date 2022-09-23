@@ -1,4 +1,6 @@
 export default function Project() {
+    const projectData = [];
+
     const projScreen = document.createElement("div");
     projScreen.setAttribute("id", "proj-screen");
 
@@ -41,11 +43,21 @@ export default function Project() {
 
         document.getElementById("proj-submit").addEventListener("click", function(e) {
             e.preventDefault();
+            const projName = document.getElementById("proj-name").value;
+            projectData.push(new Project(projName));
 
             const newProj = document.createElement("button");
-            newProj.setAttribute("id", document.getElementById("proj-name").value);
+            newProj.setAttribute("id", projName);
             newProj.setAttribute("class", "proj-item");
-            newProj.innerHTML = projID;
+
+            const newProjPic = document.createElement("img");
+            newProjPic.setAttribute("src", "../src/images/folder.png")
+            newProjPic.setAttribute("class", "proj-pic");
+            newProj.appendChild(newProjPic);
+
+            const newProjName = document.createElement("h4");
+            newProjName.innerHTML = projName;
+            newProj.appendChild(newProjName);
 
             const projectsList = document.getElementById("projects-list");
             projectsList.appendChild(newProj);
@@ -57,4 +69,10 @@ export default function Project() {
             document.getElementById("proj-screen").remove();
         });
     });
+
+    class Project {
+        constructor(name) {
+            this.name = name;
+        }
+    }
 }
