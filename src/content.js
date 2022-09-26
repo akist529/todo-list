@@ -1,15 +1,11 @@
-export default function List() {
-    const listWrapper = document.createElement("div");
-    listWrapper.setAttribute("id", "list-wrapper");
+import Inbox from "./inbox.js";
+import Today from "./today.js";
+import Calendar from "./calendar.js";
+import Task from "./task.js";
 
-    const list = document.createElement("div");
-    list.setAttribute("id", "list");
-
-    const listTitle = document.createElement("h1");
-    listTitle.setAttribute("id", "list-title");
-    listTitle.textContent = "Inbox";
-    list.appendChild(listTitle);
-    listWrapper.appendChild(list);
+export default function Content(projectData) {
+    const contentWrap = document.createElement("div");
+    contentWrap.setAttribute("id", "content-wrapper");
 
     const resetLayout = document.createElement("button");
     resetLayout.setAttribute("id", "reset-layout");
@@ -17,24 +13,29 @@ export default function List() {
     const resetPic = document.createElement("img");
     resetPic.setAttribute("src", "../src/images/team_dashboard.png");
     resetLayout.appendChild(resetPic);
-    listWrapper.appendChild(resetLayout);
+    contentWrap.appendChild(resetLayout);
+    document.getElementById("content").appendChild(contentWrap);
 
-    document.getElementById("content").appendChild(listWrapper);
+    Inbox(projectData);
 
     document.getElementById("sidebar-inbox").addEventListener("click", function() {
-        document.getElementById("list-title").textContent = "Inbox";
+        Inbox(projectData);
     });
 
     document.getElementById("sidebar-today").addEventListener("click", function() {
-        document.getElementById("list-title").textContent = "Today";
+        Today(projectData);
     });
 
     document.getElementById("sidebar-calendar").addEventListener("click", function() {
-        document.getElementById("list-title").textContent = "Calendar";
+        Calendar(projectData);
     });
 
     document.getElementById("reset-layout").addEventListener("click", function() {
         document.getElementById("content").style.gridTemplateColumns = "";
         document.getElementById("content").style.gridTemplateRows = "";
+    });
+
+    document.getElementById("add-task").addEventListener("click", function() {
+        Task(projectData);
     });
 }

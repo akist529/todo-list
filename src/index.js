@@ -1,19 +1,26 @@
 import Header from "./header.js";
 import Login from "./login.js";
 import Sidebar from "./sidebar.js";
-import Project from "./project.js";
-import List from "./list.js";
+import Content from "./content.js";
 import Gutters from "./gutters.js";
 import Split from "split-grid";
+import Project from "./project.js";
 import "./style.css";
 
-Header();
-Login();
-Sidebar();
-Project();
-List();
-Gutters();
+const projectData = [{
+    title: "", 
+    description: "", 
+    selected: true, 
+    tasks: []
+}];
 
+const userData = [];
+
+Header();
+Login(userData);
+Sidebar();
+Content(projectData);
+Gutters();
 Split({
     columnGutters: [{
         track: 1,
@@ -24,3 +31,4 @@ Split({
         element: document.getElementById("gutter-row")
     }]
 });
+Project(projectData);

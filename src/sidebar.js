@@ -1,7 +1,6 @@
 export default function Sidebar() {
     const sidebar = document.createElement("div");
-    sidebar.id = "sidebar";
-
+    sidebar.setAttribute("id", "sidebar");
 
     const inbox = document.createElement("button");
     inbox.setAttribute("id", "sidebar-inbox");
@@ -16,7 +15,6 @@ export default function Sidebar() {
     inbox.appendChild(inboxText);
     sidebar.appendChild(inbox);
 
-
     const today = document.createElement("button");
     today.setAttribute("id", "sidebar-today");
     today.setAttribute("class", "sidebar-line");
@@ -30,7 +28,6 @@ export default function Sidebar() {
     today.appendChild(todayText);
     sidebar.appendChild(today);
 
-
     const calendar = document.createElement("button");
     calendar.setAttribute("id", "sidebar-calendar");
     calendar.setAttribute("class", "sidebar-line");
@@ -43,7 +40,6 @@ export default function Sidebar() {
     calendarText.textContent = "Calendar";
     calendar.appendChild(calendarText);
     sidebar.appendChild(calendar);
-
 
     const projects = document.createElement("button");
     projects.setAttribute("id", "sidebar-projects");
@@ -62,7 +58,6 @@ export default function Sidebar() {
     const projectsList = document.createElement("div");
     projectsList.setAttribute("id", "projects-list");
     sidebar.appendChild(projectsList);
-
 
     const addProj = document.createElement("button");
     addProj.setAttribute("id", "sidebar-add");

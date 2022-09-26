@@ -1,21 +1,20 @@
-export default function Project() {
-    const projectData = [];
-
+export default function addProject(projectData) {
     const projScreen = document.createElement("div");
     projScreen.setAttribute("id", "proj-screen");
+    projScreen.setAttribute("class", "popup-screen");
 
     const projPrompt = document.createElement("div");
     projPrompt.setAttribute("id", "proj-prompt");
+    projPrompt.setAttribute("class", "popup-prompt");
 
     const form = document.createElement("form");
-    form.setAttribute("action", "");
 
     const logProj = document.createElement("div");
-    logProj.className = "input-field";
+    logProj.setAttribute("class", "input-field");
 
     const projLabel = document.createElement("label");
-    projLabel.textContent = "Project Name:";
     projLabel.setAttribute("for", "proj-name");
+    projLabel.textContent = "Project Name:";
     logProj.appendChild(projLabel);
 
     const projField = document.createElement("input");
@@ -43,6 +42,7 @@ export default function Project() {
 
         document.getElementById("proj-submit").addEventListener("click", function(e) {
             e.preventDefault();
+
             const projName = document.getElementById("proj-name").value;
             projectData.push(new Project(projName));
 
@@ -73,6 +73,10 @@ export default function Project() {
     class Project {
         constructor(name) {
             this.name = name;
+            this.selected = true;
+            this.tasks = [];
         }
     }
+
+    return projectData;
 }

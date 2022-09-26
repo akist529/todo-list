@@ -1,6 +1,6 @@
 export default function Header() {
     const header = document.createElement("div");
-    header.id = "header";
+    header.setAttribute("id", "header");
 
     const headerTitles = document.createElement("div");
     headerTitles.setAttribute("id", "header-titles");
@@ -19,8 +19,8 @@ export default function Header() {
     headerButtons.setAttribute("id", "header-buttons");
 
     const loginButton = document.createElement("button");
-    loginButton.id = "login-button";
-    loginButton.className = "header-button";
+    loginButton.setAttribute("id", "login-button");
+    loginButton.setAttribute("class", "header-button");
 
     const loginPic = document.createElement("img");
     loginPic.setAttribute("src", "../src/images/account_circle.png");
@@ -35,11 +35,10 @@ export default function Header() {
     menuImg.setAttribute("src", "../src/images/menu.png");
 
     const menuButton = document.createElement("button");
-    menuButton.id = "menu-button";
-    menuButton.className = "header-button";
+    menuButton.setAttribute("id", "menu-button");
+    menuButton.setAttribute("class", "header-button");
     menuButton.appendChild(menuImg);
     headerButtons.appendChild(menuButton);
-
     header.appendChild(headerButtons);
 
     document.getElementById("content").appendChild(header);

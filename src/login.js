@@ -1,9 +1,11 @@
-export default function Login() {
+export default function Login(userData) {
     const loginScreen = document.createElement("div");
     loginScreen.setAttribute("id", "login-screen");
+    loginScreen.setAttribute("class", "popup-screen");
 
     const loginPrompt = document.createElement("div");
     loginPrompt.setAttribute("id", "login-prompt");
+    loginPrompt.setAttribute("class", "popup-prompt");
 
     const loginHeader = document.createElement("h1");
     loginHeader.setAttribute("id", "login-header");
@@ -11,7 +13,6 @@ export default function Login() {
     loginPrompt.appendChild(loginHeader);
 
     const form = document.createElement("form");
-    form.setAttribute("action", "");
 
     const logName = document.createElement("div");
     logName.className = "input-field";
@@ -66,9 +67,27 @@ export default function Login() {
         document.getElementById("login-submit").addEventListener("click", function(e) {
             e.preventDefault();
 
+            const userEntered = document.getElementById("login-name").value;
+            const userCheck = false;
+
+            for (const user of userData) {
+                if (user.name === userEntered) {
+                    document.getElementById("login-button").children[1].textContent = `Hello, ${userEntered}`;
+                    document.getElementById("login-screen").remove();
+                    userCheck = true;
+                    break;
+                }
+            }
+
+            if (!userCheck) {
+                const prompt = document.getElementById("login-prompt");
+                const error = document.createElement("p");
+                error.textContent = "This user does not exist";
+                prompt.insertBefore(error, prompt.children[2]);
+            }
+
             document.getElementById("login-name").value = "";
             document.getElementById("login-pass").value = "";
-            document.getElementById("login-screen").remove();
         });
 
         document.getElementById("close-login").addEventListener("click", function() {

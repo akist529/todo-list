@@ -94,6 +94,43 @@ form {
     height: 2rem;
 }
 
+.popup-screen {
+    background-color: rgba(0, 0, 0, 0.5);
+
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: prompt-spawn;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+.popup-prompt {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 5px 5px 20px #000000;
+
+    height: 250px;
+    width: 500px;
+
+    animation: header-spawn;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 #content {
     display: grid;
     grid-template-rows: 1fr 2px 4fr;
@@ -159,51 +196,12 @@ form {
     transition: 0.25s;
 }
 
-#login-screen,
-#proj-screen {
-    background-color: rgba(0, 0, 0, 0.5);
-
-    height: 100vh;
-    width: 100vw;
-
-    position: absolute;
-    z-index: 1;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    animation: prompt-spawn;
-    animation-duration: 0.25s;
-    animation-fill-mode: forwards;
-}
-
 @keyframes prompt-spawn {
     0% {
         opacity: 0%;
     } 100% {
         opacity: 100%;
     }
-}
-
-#login-prompt,
-#proj-prompt {
-    background-color: white;
-    border-radius: 25px;
-    box-shadow: 5px 5px 20px #000000;
-
-    height: 250px;
-    width: 500px;
-
-    animation: header-spawn;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
 }
 
 #sidebar {
@@ -260,7 +258,7 @@ form {
     grid-row: 6 / 7;
 }
 
-#list-wrapper {
+#content-wrapper {
     grid-row: 3 / 4;
     grid-column: 3 / 4;
 
@@ -289,6 +287,20 @@ form {
     to {
         transform: translateY(0px);
     }
+}
+
+#add-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 1.25rem;
+    border: none;
+    padding: 10px 20px;
+}
+
+#add-task > img {
+    height: 36px;
 }
 
 #reset-layout {
