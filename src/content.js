@@ -19,14 +19,20 @@ export default function Content(projectData) {
     Inbox(projectData);
 
     document.getElementById("sidebar-inbox").addEventListener("click", function() {
+        document.querySelector(".list-content").remove();
+
         Inbox(projectData);
     });
 
     document.getElementById("sidebar-today").addEventListener("click", function() {
+        document.querySelector(".list-content").remove();
+
         Today(projectData);
     });
 
     document.getElementById("sidebar-calendar").addEventListener("click", function() {
+        document.querySelector(".list-content").remove();
+
         Calendar(projectData);
     });
 

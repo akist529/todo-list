@@ -74,6 +74,21 @@ form {
     scale: 90%;
 }
 
+.list-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-header {
+    grid-row: 2 / 3;
+}
+
+.calendar-day {
+    grid-row: 3 / 4;
+}
+
 .projects-closed {
     display: none;
 }
@@ -319,6 +334,25 @@ form {
     bottom: 2%;
     right: 2%;
     scale: 120%;
+}
+
+#calendar {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
+}
+
+#calendar > h2,
+#calendar > h3,
+#calendar > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calendar-month {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
 }
 
 #gutter-col {
