@@ -1,5 +1,4 @@
-@import 'reset';
-@import 'config';
+@import 'reset', 'config';
 
 * {
     font-family: $main-font;
@@ -7,366 +6,300 @@
 
 body {
     background-color: $primary-bg;
-}
 
-form {
-    @include flex(column, space-evenly, center);
-    gap: 10px;
-}
-
-.header-button {
-    border: none;
-    border-radius: 5px;
-
-    font-family: $small-font;
-    font-size: 1rem;
-
-    padding: 20px 40px;
-}
-
-.header-button:hover {
-    scale: 90%;
-}
-
-.input-field {
-    @include flex(row, space-between, center);
-}
-
-.button-close {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    background-color: $close-bg;
-    color: $white-text;
-    font-size: 2rem;
-    font-weight: 700;
-
-    height: 50px;
-    width: 50px;
-
-    border-top-left-radius: 25px;
-    border-bottom-right-radius: 10px;
-}
-
-.sidebar-line {
-    @include flex(row, center, center);
-    font-size: 1.25rem;
-
-    border: none;
-    background-color: rgba(0, 0, 0, 0);
-
-    cursor: pointer;
-}
-
-.sidebar-line:hover {
-    scale: 90%;
-}
-
-.list-content {
-    @include flex(column, center, center);
-}
-
-.calendar-header {
-    grid-row: 2 / 3;
-}
-
-.calendar-day {
-    grid-row: 3 / 4;
-}
-
-.projects-closed {
-    display: none;
-}
-
-.proj-item {
-    border: none;
-    font-size: 1.25rem;
-    font-family: $small-font;
-    background-color: $transparent;
-
-    @include flex(row, center, center);
-    padding-left: 20%;
-    gap: 5px;
-}
-
-.proj-pic {
-    height: 2rem;
-}
-
-.popup-screen {
-    background-color: $form-bg;
-
-    height: 100vh;
-    width: 100vw;
-
-    position: absolute;
-    z-index: 1;
-
-    @include flex(row, center, center);
-
-    animation: prompt-spawn;
-    animation-duration: 0.25s;
-    animation-fill-mode: forwards;
-}
-
-.popup-prompt {
-    background: white;
-    border-radius: 25px;
-    box-shadow: 5px 5px 20px #000000;
-
-    height: 250px;
-    width: 500px;
-
-    animation: header-spawn;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-
-    @include flex(column, center, center);
-    gap: 5px;
-}
-
-#content {
-    display: grid;
-    grid-template-rows: 1fr 2px 4fr;
-    grid-template-columns: 1fr 2px 4fr;
-    height: 100vh;
-    width: 100vw;
-
-    position: absolute;
-    z-index: 0;
-}
-
-#header {
-    grid-row: 1 / 2;
-    grid-column: 1 / -1;
-
-    background: $primary-bg;
-    position: relative;
-    transform: translateY(-500px);
-    z-index: 2;
-    padding: 5px 0 5px 0;
-
-    animation: header-spawn;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-@keyframes header-spawn {
-    0% {
-        transform: translateY(-500px);
-    } 50% {
-        transform: translateY(20px);
-    } 100% {
-        transform: translateY(0px);
-    }
-}
-
-#header-title {
-    font-size: 4rem;
-}
-
-#header-buttons {
-    @include flex(row, center, center);
-    gap: 20px;
-}
-
-#login-button {
-    @include flex(row, center, center);
-    gap: 10px;
-}
-
-#menu-button {
-    padding: 20px 40px;
-    transition: 0.25s;
-}
-
-#menu-button:hover {
-    padding: 20px 120px;
-    transition: 0.25s;
-}
-
-@keyframes prompt-spawn {
-    0% {
-        opacity: 0%;
-    } 100% {
-        opacity: 100%;
-    }
-}
-
-#sidebar {
-    grid-row: 3 / 4;
-    grid-column: 1 / 2;
-
-    background: $primary-bg;
-    position: relative;
-    z-index: 1;
-    padding: 20px;
-
-    animation: sidebar-spawn;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-
-    display: grid;
-    grid-template-rows: repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px);
-    justify-content: center;
-}
-
-@keyframes sidebar-spawn {
-    0% {
-        transform: translateX(-500px);
-    }
-    50% {
-        transform: translateX(20px);
-    }
-    100% {
-        transform: translateX(0px);
-    }
-}
-
-#sidebar-inbox {
-    grid-row: 1 / 2;
-}
-
-#sidebar-today {
-    grid-row: 2 / 3;
-}
-
-#sidebar-calendar {
-    grid-row: 3 / 4;
-}
-
-#sidebar-projects {
-    grid-row: 4 / 5;
-}
-
-#projects-list {
-    grid-row: 5 / 6;
-}
-
-#sidebar-add {
-    grid-row: 6 / 7;
-}
-
-#content-wrapper {
-    grid-row: 3 / 4;
-    grid-column: 3 / 4;
-
-    background: white;
-    position: relative;
-    z-index: 0;
-
-    animation: list-spawn;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-
-    @include flex(row, center, center);
-}
-
-#list {
-    animation: list-spawn;
-    animation-duration: 0.5s;
-}
-
-@keyframes list-spawn {
-    from {
-        transform: translateY(1000px);
-    }
-    to {
-        transform: translateY(0px);
-    }
-}
-
-#add-task {
-    @include flex(row, center, center);
-    gap: 10px;
-
-    font-size: 1.25rem;
-    border: none;
-    padding: 10px 20px;
-}
-
-#add-task > img {
-    height: 36px;
-}
-
-#reset-layout {
-    position: absolute;
-    bottom: 0%;
-    right: 0%;
-
-    border: none;
-    background: $transparent;
+    #content {
+        display: grid;
+        grid-template: 1fr 2px 4fr / 1fr 2px 4fr;
+        height: 100vh;
+        width: 100vw;
     
-    transition: 0.25s;
+        position: absolute;
+        z-index: 0;
+    
+        #header {
+            grid-row: 1 / 2;
+            grid-column: 1 / -1;
+        
+            background: $primary-bg;
+            position: relative;
+            transform: translateY(-500px);
+            z-index: 2;
+            padding: 5px 0 5px 0;
+        
+            @include flex(row, space-around, center);
+            @include animation(header-spawn, 1s, forwards);
+            @include keyframes(header-spawn);
+        
+            #header-title {
+                font-size: 4rem;
+            }
+        
+            #header-buttons {
+                @include flex(row, center, center);
+                gap: 20px;
+        
+                .header-button {
+                    @include border(none, 5px);
+                
+                    font-family: $small-font;
+                    font-size: 1rem;
+                
+                    padding: 20px 40px;
+                
+                    &:hover {
+                        scale: 90%;
+                    }
+                }
+    
+                #login-button {
+                    @include flex(row, center, center);
+                    gap: 10px;
+                }
+                
+                #menu-button {
+                    padding: 20px 40px;
+                    transition: 0.25s;
+                
+                    &:hover {
+                        padding: 20px 120px;
+                        transition: 0.25s;
+                    }
+                }
+            }
+        }
+        
+        #sidebar {
+            grid-row: 3 / 4;
+            grid-column: 1 / 2;
+        
+            background: $primary-bg;
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        
+            @include animation(sidebar-spawn, 1s, forwards);
+        
+            display: grid;
+            grid-template-rows: repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px);
+            justify-content: center;
+        
+            #{&}-inbox {
+                grid-row: 1 / 2;
+            }
+            
+            #{&}-today {
+                grid-row: 2 / 3;
+            }
+            
+            #{&}-calendar {
+                grid-row: 3 / 4;
+            }
+            
+            #{&}-projects {
+                grid-row: 4 / 5;
+            }
+            
+            #sidebar-list {
+                grid-row: 5 / 6;
+
+                .proj-item {
+                    @include border(none, none);
+                    font-size: 1.25rem;
+                    font-family: $small-font;
+                    background-color: $transparent;
+                
+                    @include flex(row, center, center);
+                    padding-left: 20%;
+                    gap: 5px;
+
+                    .proj-pic {
+                        height: 2rem;
+                    }
+                }
+            }
+            
+            #{&}-add {
+                grid-row: 6 / 7;
+            }
+        
+            .sidebar-line {
+                @include flex(row, center, center);
+                font-size: 1.25rem;
+            
+                @include border(none, none);
+                background-color: $transparent;
+            
+                &:hover {
+                    cursor: pointer;
+                    scale: 90%;
+                }
+            }
+        }
+    
+        #content-wrapper {
+            grid-row: 3 / 4;
+            grid-column: 3 / 4;
+        
+            background: white;
+            position: relative;
+            z-index: 0;
+        
+            @include flex(row, center, center);
+            @include animation(list-spawn, 0.5s, forwards);
+    
+            #reset-layout {
+                position: absolute;
+                bottom: 0%;
+                right: 0%;
+            
+                border: none;
+                background: $transparent;
+                
+                transition: 0.25s;
+            
+                &:hover {
+                    cursor: pointer;
+                    bottom: 2%;
+                    right: 2%;
+                    scale: 120%;
+                }
+            }
+    
+            #calendar {
+                display: grid;
+                grid-template-rows: repeat(auto-fill, 1fr);
+                grid-template-columns: repeat(7, minmax(100px, 1fr));
+            
+                h2, h3, div {
+                    @include flex(row, center, center);
+                }
+    
+                #calendar-month {
+                    grid-row: 1 / 2;
+                    grid-column: 1 / -1;
+                }
+    
+                .calendar-header {
+                    grid-row: 2 / 3;
+                }
+                
+                .calendar-day {
+                    grid-row: 3 / 4;
+                }
+            }
+    
+            .list-content {
+                @include flex(column, center, center);
+    
+                #add-task {
+                    @include flex(row, center, center);
+                    gap: 10px;
+                
+                    font-size: 1.25rem;
+                    border: none;
+                    padding: 10px 20px;
+                
+                    img {
+                        height: 36px;
+                    }
+                }
+            }
+        }
+    
+        #gutter-col {
+            grid-row: 3 / 4;
+            grid-column: 2 / 3;
+            justify-self: center;
+        
+            position: relative;
+            z-index: 1;
+        
+            background-color: black;
+            width: 2px;
+            transition: 0.5s;
+        
+            @include animation(sidebar-spawn, 1s, forwards);
+        
+            &:hover {
+                cursor: col-resize;
+                width: 30px;
+            }
+        }
+        
+        #gutter-row {
+            grid-row: 2 / 3;
+            grid-column: 1 / -1;
+            align-self: center;
+        
+            position: relative;
+            z-index: 2;
+        
+            background-color: black;
+            height: 2px;
+            transition: 0.5s;
+        
+            @include animation(header-spawn, 1s, forwards);
+        
+            &:hover {
+                cursor: row-resize;
+                height: 30px;
+            }
+        }
+    }
+
+    .popup-screen {
+        background-color: $form-bg;
+    
+        height: 100vh;
+        width: 100vw;
+    
+        position: absolute;
+        z-index: 1;
+    
+        @include animation(prompt-spawn, 0.25s, forwards);
+        @include flex(row, center, center);
+
+        .popup-prompt {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 5px 5px 20px #000000;
+        
+            height: 250px;
+            width: 500px;
+        
+            @include flex(column, center, center);
+            @include animation(header-spawn, 0.5s, forwards);
+            gap: 5px;
+
+            form {
+                @include flex(column, space-evenly, center);
+                gap: 10px;
+
+                .input-field {
+                    @include flex(row, space-between, center);
+                }
+            }
+
+            .button-close {
+                position: absolute;
+                top: 0;
+                left: 0;
+            
+                background-color: $close-bg;
+                color: $white-text;
+                font-size: 2rem;
+                font-weight: 700;
+            
+                height: 50px;
+                width: 50px;
+            
+                border-top-left-radius: 25px;
+                border-bottom-right-radius: 10px;
+            }
+        }
+    }
 }
 
-#reset-layout:hover {
-    cursor: pointer;
-    bottom: 2%;
-    right: 2%;
-    scale: 120%;
-}
-
-#calendar {
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 1fr);
-    grid-template-columns: repeat(7, minmax(100px, 1fr));
-}
-
-#calendar > h2,
-#calendar > h3,
-#calendar > div {
-    @include flex(row, center, center);
-}
-
-#calendar-month {
-    grid-row: 1 / 2;
-    grid-column: 1 / -1;
-}
-
-#gutter-col {
-    grid-row: 3 / 4;
-    grid-column: 2 / 3;
-    justify-self: center;
-
-    position: relative;
-    z-index: 1;
-
-    background-color: black;
-    width: 2px;
-    transition: 0.5s;
-
-    animation: sidebar-spawn;
-    animation-duration: 1s;
-}
-
-#gutter-col:hover {
-    cursor: col-resize;
-    width: 30px;
-}
-
-#gutter-row {
-    grid-row: 2 / 3;
-    grid-column: 1 / -1;
-    align-self: center;
-
-    position: relative;
-    z-index: 2;
-
-    background-color: black;
-    height: 2px;
-    transition: 0.5s;
-
-    animation: header-spawn;
-    animation-duration: 1s;
-}
-
-#gutter-row:hover {
-    cursor: row-resize;
-    height: 30px;
+.list-closed {
+    display: none;
 }

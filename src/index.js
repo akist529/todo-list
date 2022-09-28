@@ -5,6 +5,7 @@ import Content from "./content.js";
 import Gutters from "./gutters.js";
 import Split from "split-grid";
 import Project from "./project.js";
+import "../dist/css/main.css";
 
 const projectData = [{
     title: "", 

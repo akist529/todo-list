@@ -56,7 +56,7 @@ export default function Sidebar() {
     sidebar.appendChild(projects);
 
     const projectsList = document.createElement("div");
-    projectsList.setAttribute("id", "projects-list");
+    projectsList.setAttribute("id", "sidebar-list");
     sidebar.appendChild(projectsList);
 
     const addProj = document.createElement("button");
@@ -79,10 +79,10 @@ export default function Sidebar() {
         const regEx = /expand_circle_down.png$/;
 
         if (regEx.test(state)) {
-            document.getElementById("projects-list").classList.add("projects-closed");
+            document.getElementById("sidebar-list").classList.add("projects-closed");
             document.getElementById("projects-pic").setAttribute("src", "../src/images/arrow_circle_right.png");
         } else {
-            document.getElementById("projects-list").classList.remove("projects-closed");
+            document.getElementById("sidebar-list").classList.remove("projects-closed");
             document.getElementById("projects-pic").setAttribute("src", "../src/images/expand_circle_down.png");
         }
     });
