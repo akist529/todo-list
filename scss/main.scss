@@ -1,25 +1,16 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
-@import url("https://fonts.googleapis.com/css?family=Antonio");
-@import url("https://fonts.googleapis.com/css?family=Karla");
+@import 'reset';
+@import 'config';
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-    font-family: "Karla";
+    font-family: $main-font;
 }
 
 body {
-    background-color: lightgrey;
+    background-color: $primary-bg;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
+    @include flex(column, space-evenly, center);
     gap: 10px;
 }
 
@@ -27,7 +18,7 @@ form {
     border: none;
     border-radius: 5px;
 
-    font-family: "Roboto Mono";
+    font-family: $small-font;
     font-size: 1rem;
 
     padding: 20px 40px;
@@ -38,8 +29,7 @@ form {
 }
 
 .input-field {
-    display: flex;
-    justify-content: space-between;
+    @include flex(row, space-between, center);
 }
 
 .button-close {
@@ -47,8 +37,8 @@ form {
     top: 0;
     left: 0;
 
-    background-color: rgb(194, 27, 27);
-    color: white;
+    background-color: $close-bg;
+    color: $white-text;
     font-size: 2rem;
     font-weight: 700;
 
@@ -60,8 +50,7 @@ form {
 }
 
 .sidebar-line {
-    display: flex;
-    align-items: center;
+    @include flex(row, center, center);
     font-size: 1.25rem;
 
     border: none;
@@ -75,10 +64,7 @@ form {
 }
 
 .list-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
 }
 
 .calendar-header {
@@ -96,11 +82,10 @@ form {
 .proj-item {
     border: none;
     font-size: 1.25rem;
-    font-family: "Roboto Mono";
-    background-color: rgba(0, 0, 0, 0);
+    font-family: $small-font;
+    background-color: $transparent;
 
-    display: flex;
-    align-items: center;
+    @include flex(row, center, center);
     padding-left: 20%;
     gap: 5px;
 }
@@ -110,7 +95,7 @@ form {
 }
 
 .popup-screen {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $form-bg;
 
     height: 100vh;
     width: 100vw;
@@ -118,9 +103,7 @@ form {
     position: absolute;
     z-index: 1;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(row, center, center);
 
     animation: prompt-spawn;
     animation-duration: 0.25s;
@@ -128,7 +111,7 @@ form {
 }
 
 .popup-prompt {
-    background-color: white;
+    background: white;
     border-radius: 25px;
     box-shadow: 5px 5px 20px #000000;
 
@@ -139,10 +122,7 @@ form {
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
     gap: 5px;
 }
 
@@ -161,7 +141,7 @@ form {
     grid-row: 1 / 2;
     grid-column: 1 / -1;
 
-    background-color: lightgrey;
+    background: $primary-bg;
     position: relative;
     transform: translateY(-500px);
     z-index: 2;
@@ -191,13 +171,12 @@ form {
 }
 
 #header-buttons {
-    display: flex;
+    @include flex(row, center, center);
     gap: 20px;
 }
 
 #login-button {
-    display: flex;
-    align-items: center;
+    @include flex(row, center, center);
     gap: 10px;
 }
 
@@ -223,7 +202,7 @@ form {
     grid-row: 3 / 4;
     grid-column: 1 / 2;
 
-    background-color: lightgrey;
+    background: $primary-bg;
     position: relative;
     z-index: 1;
     padding: 20px;
@@ -277,7 +256,7 @@ form {
     grid-row: 3 / 4;
     grid-column: 3 / 4;
 
-    background-color: white;
+    background: white;
     position: relative;
     z-index: 0;
 
@@ -285,9 +264,7 @@ form {
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(row, center, center);
 }
 
 #list {
@@ -305,8 +282,7 @@ form {
 }
 
 #add-task {
-    display: flex;
-    align-items: center;
+    @include flex(row, center, center);
     gap: 10px;
 
     font-size: 1.25rem;
@@ -324,7 +300,7 @@ form {
     right: 0%;
 
     border: none;
-    background-color: rgba(0, 0, 0, 0);
+    background: $transparent;
     
     transition: 0.25s;
 }
@@ -345,9 +321,7 @@ form {
 #calendar > h2,
 #calendar > h3,
 #calendar > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(row, center, center);
 }
 
 #calendar-month {

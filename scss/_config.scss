@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url("https://fonts.googleapis.com/css?family=Karla");
+
+$font-families: (
+    "small": "Roboto Mono",
+    "main": "Karla"
+);
+
+@mixin flex($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+$small-font: "Roboto Mono";
+$main-font: "Karla";
+
+$transparent: rgba(0, 0, 0, 0);
+$form-bg: rgba(0, 0, 0, 0.5);
+
+$primary-bg: lightgrey;
+$secondary-bg: white;
+$close-bg: rgb(194, 27, 27);
+
+$white-text: white;
