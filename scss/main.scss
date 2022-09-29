@@ -1,4 +1,5 @@
-@import 'reset', 'config';
+// Import partial stylesheets
+@import 'reset', 'typography', 'mixins', 'animations', 'colors';
 
 * {
     font-family: $main-font;
@@ -8,8 +9,7 @@ body {
     background-color: $primary-bg;
 
     #content {
-        display: grid;
-        grid-template: 1fr 2px 4fr / 1fr 2px 4fr;
+        @include grid(1fr 2px 4fr, 1fr 2px 4fr);
         height: 100vh;
         width: 100vw;
     
@@ -17,8 +17,7 @@ body {
         z-index: 0;
     
         #header {
-            grid-row: 1 / 2;
-            grid-column: 1 / -1;
+            @include grid-loc(1/#{2}, 1/#{-1});
         
             background: $primary-bg;
             position: relative;
@@ -28,9 +27,8 @@ body {
         
             @include flex(row, space-around, center);
             @include animation(header-spawn, 1s, forwards);
-            @include keyframes(header-spawn);
         
-            #header-title {
+            h1 {
                 font-size: 4rem;
             }
         
@@ -38,7 +36,7 @@ body {
                 @include flex(row, center, center);
                 gap: 20px;
         
-                .header-button {
+                button {
                     @include border(none, 5px);
                 
                     font-family: $small-font;
@@ -57,6 +55,7 @@ body {
                 }
                 
                 #menu-button {
+                    @include flex(row, center, center);
                     padding: 20px 40px;
                     transition: 0.25s;
                 
@@ -69,8 +68,7 @@ body {
         }
         
         #sidebar {
-            grid-row: 3 / 4;
-            grid-column: 1 / 2;
+            @include grid-loc(3/#{4}, 1/#{2});
         
             background: $primary-bg;
             position: relative;
@@ -79,50 +77,10 @@ body {
         
             @include animation(sidebar-spawn, 1s, forwards);
         
-            display: grid;
-            grid-template-rows: repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px);
+            @include grid(repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px), 1fr);
             justify-content: center;
-        
-            #{&}-inbox {
-                grid-row: 1 / 2;
-            }
-            
-            #{&}-today {
-                grid-row: 2 / 3;
-            }
-            
-            #{&}-calendar {
-                grid-row: 3 / 4;
-            }
-            
-            #{&}-projects {
-                grid-row: 4 / 5;
-            }
-            
-            #sidebar-list {
-                grid-row: 5 / 6;
 
-                .proj-item {
-                    @include border(none, none);
-                    font-size: 1.25rem;
-                    font-family: $small-font;
-                    background-color: $transparent;
-                
-                    @include flex(row, center, center);
-                    padding-left: 20%;
-                    gap: 5px;
-
-                    .proj-pic {
-                        height: 2rem;
-                    }
-                }
-            }
-            
-            #{&}-add {
-                grid-row: 6 / 7;
-            }
-        
-            .sidebar-line {
+            button {
                 @include flex(row, center, center);
                 font-size: 1.25rem;
             
@@ -134,11 +92,53 @@ body {
                     scale: 90%;
                 }
             }
+        
+            #{&}-inbox {
+                @include grid-loc(1/#{2}, 1/#{-1});
+            }
+            
+            #{&}-today {
+                @include grid-loc(2/#{3}, 1/#{-1});
+            }
+            
+            #{&}-calendar {
+                @include grid-loc(3/#{4}, 1/#{-1});
+            }
+            
+            #{&}-projects {
+                @include grid-loc(4/#{5}, 1/#{-1});
+            }
+            
+            #sidebar-list {
+                @include grid-loc(5/#{6}, 1/#{-1});
+
+                button {
+                    @include border(none, none);
+                    font-size: 1.25rem;
+                    font-family: $small-font;
+                    background-color: $transparent;
+                
+                    @include flex(row, center, center);
+                    padding-left: 20%;
+                    gap: 5px;
+
+                    img {
+                        height: 2rem;
+                    }
+                }
+            }
+            
+            #{&}-add {
+                @include grid-loc(6/#{7}, 1/#{-1});
+            }
+
+            .projects-closed {
+                display: none;
+            }
         }
     
         #content-wrapper {
-            grid-row: 3 / 4;
-            grid-column: 3 / 4;
+            @include grid-loc(3/#{4}, 3/#{4});
         
             background: white;
             position: relative;
@@ -166,25 +166,28 @@ body {
             }
     
             #calendar {
-                display: grid;
-                grid-template-rows: repeat(auto-fill, 1fr);
-                grid-template-columns: repeat(7, minmax(100px, 1fr));
+                @include grid(repeat(auto-fill, 1fr) / repeat(7, minmax(100px, 1fr)), 1fr);
             
                 h2, h3, div {
                     @include flex(row, center, center);
                 }
     
                 #calendar-month {
-                    grid-row: 1 / 2;
-                    grid-column: 1 / -1;
+                    @include grid-loc(1/#{2}, 1/#{-1});
                 }
     
                 .calendar-header {
+                    @include grid-loc(2/#{3}, 1/#{-1});
+                    /*
                     grid-row: 2 / 3;
+                    */
                 }
                 
                 .calendar-day {
+                    @include grid-loc(3/#{4}, 1/#{-1});
+                    /*
                     grid-row: 3 / 4;
+                    */
                 }
             }
     
@@ -207,8 +210,7 @@ body {
         }
     
         #gutter-col {
-            grid-row: 3 / 4;
-            grid-column: 2 / 3;
+            @include grid-loc(3/#{4}, 2/#{3});
             justify-self: center;
         
             position: relative;
@@ -227,8 +229,7 @@ body {
         }
         
         #gutter-row {
-            grid-row: 2 / 3;
-            grid-column: 1 / -1;
+            @include grid-loc(2/#{3}, 1/#{-1});
             align-self: center;
         
             position: relative;
@@ -298,8 +299,4 @@ body {
             }
         }
     }
-}
-
-.list-closed {
-    display: none;
 }

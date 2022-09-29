@@ -57,6 +57,7 @@ export default function Sidebar() {
 
     const projectsList = document.createElement("div");
     projectsList.setAttribute("id", "sidebar-list");
+    projectsList.setAttribute("class", "projects-closed");
     sidebar.appendChild(projectsList);
 
     const addProj = document.createElement("button");
