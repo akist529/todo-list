@@ -10,22 +10,20 @@ body {
 
     #content {
         @include grid(1fr 2px 4fr, 1fr 2px 4fr);
-        height: 100vh;
         width: 100vw;
-    
+        height: 100vh;
         position: absolute;
         z-index: 0;
     
         #header {
+            @include flex(row, space-around, center);
             @include grid-loc(1/#{2}, 1/#{-1});
+            position: relative;
+            padding: 5px 0 5px 0;
+            z-index: 2;
         
             background: $primary-bg;
-            position: relative;
             transform: translateY(-500px);
-            z-index: 2;
-            padding: 5px 0 5px 0;
-        
-            @include flex(row, space-around, center);
             @include animation(header-spawn, 1s, forwards);
         
             h1 {
@@ -37,12 +35,11 @@ body {
                 gap: 20px;
         
                 button {
+                    padding: 20px 40px;
+
                     @include border(none, 5px);
-                
                     font-family: $small-font;
                     font-size: 1rem;
-                
-                    padding: 20px 40px;
                 
                     &:hover {
                         scale: 90%;
@@ -68,24 +65,22 @@ body {
         }
         
         #sidebar {
+            @include grid(repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px), 1fr);
             @include grid-loc(3/#{4}, 1/#{2});
-        
-            background: $primary-bg;
             position: relative;
+            justify-content: center;
             z-index: 1;
             padding: 20px;
         
+            background: $primary-bg;
             @include animation(sidebar-spawn, 1s, forwards);
         
-            @include grid(repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px), 1fr);
-            justify-content: center;
-
             button {
                 @include flex(row, center, center);
-                font-size: 1.25rem;
             
-                @include border(none, none);
                 background-color: $transparent;
+                font-size: 1.25rem;
+                @include border(none, none);
             
                 &:hover {
                     cursor: pointer;
@@ -113,14 +108,14 @@ body {
                 @include grid-loc(5/#{6}, 1/#{-1});
 
                 button {
+                    @include flex(row, center, center);
+                    padding-left: 20%;
+                    gap: 5px;
+
                     @include border(none, none);
                     font-size: 1.25rem;
                     font-family: $small-font;
                     background-color: $transparent;
-                
-                    @include flex(row, center, center);
-                    padding-left: 20%;
-                    gap: 5px;
 
                     img {
                         height: 2rem;
@@ -139,12 +134,11 @@ body {
     
         #content-wrapper {
             @include grid-loc(3/#{4}, 3/#{4});
-        
-            background: white;
+            @include flex(row, center, center);
             position: relative;
             z-index: 0;
-        
-            @include flex(row, center, center);
+
+            background: white;
             @include animation(list-spawn, 0.5s, forwards);
     
             #reset-layout {
@@ -154,14 +148,14 @@ body {
             
                 border: none;
                 background: $transparent;
-                
                 transition: 0.25s;
             
                 &:hover {
-                    cursor: pointer;
                     bottom: 2%;
                     right: 2%;
                     scale: 120%;
+
+                    cursor: pointer;
                 }
             }
     
@@ -197,10 +191,10 @@ body {
                 #add-task {
                     @include flex(row, center, center);
                     gap: 10px;
+                    padding: 10px 20px;
                 
                     font-size: 1.25rem;
                     border: none;
-                    padding: 10px 20px;
                 
                     img {
                         height: 36px;
@@ -212,14 +206,12 @@ body {
         #gutter-col {
             @include grid-loc(3/#{4}, 2/#{3});
             justify-self: center;
-        
             position: relative;
             z-index: 1;
         
             background-color: black;
             width: 2px;
             transition: 0.5s;
-        
             @include animation(sidebar-spawn, 1s, forwards);
         
             &:hover {
@@ -231,46 +223,41 @@ body {
         #gutter-row {
             @include grid-loc(2/#{3}, 1/#{-1});
             align-self: center;
-        
             position: relative;
             z-index: 2;
         
             background-color: black;
             height: 2px;
             transition: 0.5s;
-        
             @include animation(header-spawn, 1s, forwards);
         
             &:hover {
-                cursor: row-resize;
                 height: 30px;
+                cursor: row-resize;
             }
         }
     }
 
     .popup-screen {
-        background-color: $form-bg;
-    
-        height: 100vh;
-        width: 100vw;
-    
         position: absolute;
         z-index: 1;
-    
+
+        background-color: $form-bg;
+        height: 100vh;
+        width: 100vw;
         @include animation(prompt-spawn, 0.25s, forwards);
         @include flex(row, center, center);
 
         .popup-prompt {
+            @include flex(column, center, center);
+            gap: 5px;
+
             background: white;
             border-radius: 25px;
             box-shadow: 5px 5px 20px #000000;
-        
             height: 250px;
             width: 500px;
-        
-            @include flex(column, center, center);
             @include animation(header-spawn, 0.5s, forwards);
-            gap: 5px;
 
             form {
                 @include flex(column, space-evenly, center);
@@ -290,10 +277,8 @@ body {
                 color: $white-text;
                 font-size: 2rem;
                 font-weight: 700;
-            
                 height: 50px;
                 width: 50px;
-            
                 border-top-left-radius: 25px;
                 border-bottom-right-radius: 10px;
             }
