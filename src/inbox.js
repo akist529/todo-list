@@ -1,10 +1,7 @@
 export default function Inbox(projectData) {
-    if (document.getElementById("list-content")) {
-        document.getElementById("content-wrapper").firstChild.remove();
-    }
-
     const inbox = document.createElement("div");
-    inbox.setAttribute("id", "list-content");
+    inbox.setAttribute("id", "inbox");
+    inbox.setAttribute("class", "list-content");
 
     const title = document.createElement("h1");
     title.setAttribute("id", "list-title");

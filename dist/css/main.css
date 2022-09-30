@@ -1,0 +1,432 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url("https://fonts.googleapis.com/css?family=Karla");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes header-spawn {
+  0% {
+    transform: translateY(-500px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes header-spawn {
+  0% {
+    transform: translateY(-500px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-webkit-keyframes sidebar-spawn {
+  0% {
+    transform: translateX(-500px);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes sidebar-spawn {
+  0% {
+    transform: translateX(-500px);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@-webkit-keyframes list-spawn {
+  from {
+    transform: translateY(1000px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+@keyframes list-spawn {
+  from {
+    transform: translateY(1000px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+@-webkit-keyframes prompt-spawn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+@keyframes prompt-spawn {
+  0% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+* {
+  font-family: "Karla";
+}
+
+body {
+  background-color: lightgrey;
+}
+body #content {
+  display: grid;
+  grid-template-rows: 1fr 2px 4fr;
+  grid-template-columns: 1fr 2px 4fr;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 0;
+}
+body #content #header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  position: relative;
+  padding: 5px 0 5px 0;
+  z-index: 2;
+  background: lightgrey;
+  transform: translateY(-500px);
+  -webkit-animation: header-spawn;
+          animation: header-spawn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body #content #header h1 {
+  font-size: 4rem;
+}
+body #content #header #header-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+body #content #header #header-buttons button {
+  padding: 20px 40px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Roboto Mono";
+  font-size: 1rem;
+}
+body #content #header #header-buttons button:hover {
+  scale: 90%;
+}
+body #content #header #header-buttons #login-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+body #content #header #header-buttons #menu-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  transition: 0.25s;
+}
+body #content #header #header-buttons #menu-button:hover {
+  padding: 20px 120px;
+  transition: 0.25s;
+}
+body #content #sidebar {
+  display: grid;
+  grid-template-rows: repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px);
+  grid-template-columns: 1fr;
+  grid-row: 3/4;
+  grid-column: 1/2;
+  position: relative;
+  justify-content: center;
+  z-index: 1;
+  padding: 20px;
+  background: lightgrey;
+  -webkit-animation: sidebar-spawn;
+          animation: sidebar-spawn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body #content #sidebar button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 1.25rem;
+  border: none;
+  border-radius: none;
+}
+body #content #sidebar button:hover {
+  cursor: pointer;
+  scale: 90%;
+}
+body #content #sidebar body #content #sidebar-inbox {
+  grid-row: 1/2;
+  grid-column: 1/-1;
+}
+body #content #sidebar body #content #sidebar-today {
+  grid-row: 2/3;
+  grid-column: 1/-1;
+}
+body #content #sidebar body #content #sidebar-calendar {
+  grid-row: 3/4;
+  grid-column: 1/-1;
+}
+body #content #sidebar body #content #sidebar-projects {
+  grid-row: 4/5;
+  grid-column: 1/-1;
+}
+body #content #sidebar #sidebar-list {
+  grid-row: 5/6;
+  grid-column: 1/-1;
+}
+body #content #sidebar #sidebar-list button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20%;
+  gap: 5px;
+  border: none;
+  border-radius: none;
+  font-size: 1.25rem;
+  font-family: "Roboto Mono";
+  background-color: rgba(0, 0, 0, 0);
+}
+body #content #sidebar #sidebar-list button img {
+  height: 2rem;
+}
+body #content #sidebar body #content #sidebar-add {
+  grid-row: 6/7;
+  grid-column: 1/-1;
+}
+body #content #sidebar .projects-closed {
+  display: none;
+}
+body #content #content-wrapper {
+  grid-row: 3/4;
+  grid-column: 3/4;
+  /*
+  @include flex(row, center, center);
+  */
+  position: relative;
+  z-index: 0;
+  background: white;
+  -webkit-animation: list-spawn;
+          animation: list-spawn;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body #content #content-wrapper #reset-layout {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  transition: 0.25s;
+}
+body #content #content-wrapper #reset-layout:hover {
+  bottom: 2%;
+  right: 2%;
+  scale: 120%;
+  cursor: pointer;
+}
+body #content #content-wrapper #calendar {
+  display: grid;
+  grid-template-rows: 50px 50px 50px 1fr;
+  grid-template-columns: 1fr;
+}
+body #content #content-wrapper #calendar h2, body #content #content-wrapper #calendar h3, body #content #content-wrapper #calendar div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+body #content #content-wrapper #calendar #calendar-month {
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body #content #content-wrapper #calendar #calendar-month button {
+  border: none;
+  padding: 10px;
+}
+body #content #content-wrapper #calendar #calendar-headers {
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(7, 1fr);
+}
+body #content #content-wrapper #calendar #calendar-days {
+  grid-row: 3/4;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+}
+body #content #content-wrapper #calendar #calendar-days button {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 100px;
+  font-size: 1.5rem;
+  transition: 0.25s;
+}
+body #content #content-wrapper #calendar #calendar-days button:hover {
+  border-radius: 15%;
+  font-size: 2.5rem;
+  scale: 120%;
+}
+body #content #content-wrapper .list-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body #content #content-wrapper .list-content #add-task {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  font-size: 1.25rem;
+  border: none;
+}
+body #content #content-wrapper .list-content #add-task img {
+  height: 36px;
+}
+body #content #gutter-col {
+  grid-row: 3/4;
+  grid-column: 2/3;
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+  background-color: black;
+  width: 2px;
+  transition: 0.5s;
+  -webkit-animation: sidebar-spawn;
+          animation: sidebar-spawn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body #content #gutter-col:hover {
+  cursor: col-resize;
+  width: 30px;
+}
+body #content #gutter-row {
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+  background-color: black;
+  height: 2px;
+  transition: 0.5s;
+  -webkit-animation: header-spawn;
+          animation: header-spawn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body #content #gutter-row:hover {
+  height: 30px;
+  cursor: row-resize;
+}
+body .popup-screen {
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
+  -webkit-animation: prompt-spawn;
+          animation: prompt-spawn;
+  -webkit-animation-duration: 0.25s;
+          animation-duration: 0.25s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+body .popup-screen .popup-prompt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 5px 5px 20px #000000;
+  height: 250px;
+  width: 500px;
+  -webkit-animation: header-spawn;
+          animation: header-spawn;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+body .popup-screen .popup-prompt form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+body .popup-screen .popup-prompt form .input-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+body .popup-screen .popup-prompt .button-close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(194, 27, 27);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  height: 50px;
+  width: 50px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 10px;
+}/*# sourceMappingURL=main.css.map */

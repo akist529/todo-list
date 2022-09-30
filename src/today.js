@@ -1,10 +1,7 @@
 export default function Today(projectData) {
-    if (document.getElementById("list-content")) {
-        document.getElementById("content-wrapper").firstChild.remove();
-    }
-
     const today = document.createElement("div");
-    today.setAttribute("id", "list-content");
+    today.setAttribute("id", "today");
+    today.setAttribute("class", "list-content");
 
     const title = document.createElement("h1");
     title.setAttribute("id", "list-title");

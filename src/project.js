@@ -59,7 +59,7 @@ export default function addProject(projectData) {
             newProjName.innerHTML = projName;
             newProj.appendChild(newProjName);
 
-            const projectsList = document.getElementById("projects-list");
+            const projectsList = document.getElementById("sidebar-list");
             projectsList.appendChild(newProj);
 
             document.getElementById("proj-screen").remove();

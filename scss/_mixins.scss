@@ -1,0 +1,28 @@
+@mixin flex($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin grid($rows, $columns) {
+    display: grid;
+    grid-template-rows: $rows;
+    grid-template-columns: $columns;
+}
+
+@mixin grid-loc($row, $column) {
+    grid-row: $row;
+    grid-column: $column;
+}
+
+@mixin border($style, $radius) {
+    border: $style;
+    border-radius: $radius;
+}
+
+@mixin animation($animation, $duration, $fill-mode) {
+    animation: $animation;
+    animation-duration: $duration;
+    animation-fill-mode: $fill-mode;
+}
