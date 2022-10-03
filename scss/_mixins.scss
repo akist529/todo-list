@@ -1,52 +1,52 @@
-@mixin flex($direction, $justify, $align, $gap:"") {
+@mixin flex($direction:row, $justify:flex-start, $align:stretch, $gap:0) {
     display: flex;
     flex-direction: $direction;
     justify-content: $justify;
     align-items: $align;
-    gap: if($gap, $gap, 0);
+    gap: $gap;
 }
 
-@mixin grid($rows, $columns) {
+@mixin grid($rows:none, $columns:none) {
     display: grid;
     grid-template-rows: $rows;
     grid-template-columns: $columns;
 }
 
-@mixin grid-loc($row, $column) {
+@mixin grid-loc($row:auto, $column:auto) {
     grid-row: $row;
     grid-column: $column;
 }
 
-@mixin dims($width:"auto", $height:"auto") {
+@mixin dims($width:auto, $height:auto) {
     width: $width;
     height: $height;
 }
 
-@mixin min-dims($width:"auto", $height:"auto") {
+@mixin min-dims($width:auto, $height:auto) {
     min-width: $width;
     min-height: $height;
 }
 
-@mixin font($font-family:"inherit", $font-size:"1em") {
+@mixin font($font-family:inherit, $font-size:1em) {
     font-family: $font-family;
     font-size: $font-size;
 }
 
-@mixin location($top:"auto", $right:"auto", $bottom:"auto", $left:"auto") {
+@mixin location($top:auto, $right:auto, $bottom:auto, $left:auto) {
     top: $top;
     right: $right;
     bottom: $bottom;
     left: $left;
 }
 
-@mixin border($style:"none", $radius:"none", $width:"medium", $color:"black") {
+@mixin border($style:none, $radius:none, $width:medium, $color:black) {
     border-style: $style;
     border-radius: $radius;
     border-color: $color;
     border-width: $width;
 }
 
-@mixin animation($animation, $duration, $fill-mode) {
+@mixin animation($animation:none, $duration:0, $fill-mode:forwards) {
     animation: $animation;
     animation-duration: $duration;
     animation-fill-mode: $fill-mode;

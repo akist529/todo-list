@@ -149,6 +149,10 @@
   border-bottom-right-radius: 10px;
 }
 
+.proj-selected {
+  scale: 90%;
+}
+
 .month-toggle:nth-of-type(1) {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
@@ -161,7 +165,6 @@
 
 * {
   font-family: "Karla";
-  font-size: "1em";
 }
 
 body {
@@ -172,6 +175,8 @@ body {
   position: relative;
 }
 body #content {
+  width: auto;
+  height: 100vh;
   display: grid;
   grid-template-rows: 1fr 2px 4fr;
   grid-template-columns: 1fr 2px 4fr;
@@ -188,7 +193,7 @@ body #content #header {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  gap: "";
+  gap: 0;
   grid-row: 1/2;
   grid-column: 1/-1;
   background: lightgrey;
@@ -209,8 +214,8 @@ body #content #header #header-buttons {
 body #content #header #header-buttons button {
   border-style: none;
   border-radius: 5px;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   font-family: "Roboto Mono";
   font-size: 1rem;
   padding: 20px 40px;
@@ -230,7 +235,7 @@ body #content #header #header-buttons #menu-button {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   padding: 20px 40px;
   transition: 0.25s;
 }
@@ -260,8 +265,8 @@ body #content #sidebar {
 body #content #sidebar button {
   border-style: none;
   border-radius: none;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -299,8 +304,8 @@ body #content #sidebar #sidebar-list {
 body #content #sidebar #sidebar-list button {
   border-style: none;
   border-radius: none;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -335,7 +340,7 @@ body #content #content-wrapper {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   grid-row: 3/4;
   grid-column: 3/4;
   min-width: 65vw;
@@ -346,9 +351,9 @@ body #content #content-wrapper {
 }
 body #content #content-wrapper #reset-layout {
   border-style: none;
-  border-radius: "none";
-  border-color: "black";
-  border-width: "medium";
+  border-radius: none;
+  border-color: black;
+  border-width: medium;
   top: auto;
   right: 0%;
   bottom: 0%;
@@ -372,7 +377,7 @@ body #content #content-wrapper #inbox {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   position: relative;
 }
 body #content #content-wrapper #today {
@@ -382,7 +387,7 @@ body #content #content-wrapper #today {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   position: relative;
 }
 body #content #content-wrapper #calendar {
@@ -390,7 +395,7 @@ body #content #content-wrapper #calendar {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   position: relative;
 }
 body #content #content-wrapper #calendar #calendar-grid {
@@ -406,22 +411,22 @@ body #content #content-wrapper #calendar #calendar-grid h2, body #content #conte
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
 }
 body #content #content-wrapper #calendar #calendar-grid #calendar-month {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: "";
+  gap: 0;
   grid-row: 1/2;
   grid-column: 1/-1;
 }
 body #content #content-wrapper #calendar #calendar-grid #calendar-month button {
   border-style: none;
-  border-radius: "none";
-  border-color: "black";
-  border-width: "medium";
+  border-radius: none;
+  border-color: black;
+  border-width: medium;
   padding: 10px;
 }
 body #content #content-wrapper #calendar #calendar-grid #calendar-headers {
@@ -434,13 +439,13 @@ body #content #content-wrapper #calendar #calendar-grid #calendar-headers {
 body #content #content-wrapper #calendar #calendar-grid #days-wrapper {
   border-style: none;
   border-radius: 25px;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-  gap: "";
+  gap: 0;
   grid-row: 3/4;
   grid-column: 1/-1;
   position: relative;
@@ -463,8 +468,8 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #calendar-
 body #content #content-wrapper #calendar #calendar-grid #days-wrapper #calendar-days button:hover {
   border-style: none;
   border-radius: 15%;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   font-family: inherit;
   font-size: 2.5rem;
   scale: 120%;
@@ -472,10 +477,17 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #calendar-
 body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected {
   -webkit-animation: day-spawn;
           animation: day-spawn;
-  -webkit-animation-duration: 0.15s;
-          animation-duration: 0.15s;
+  -webkit-animation-duration: 0.4s;
+          animation-duration: 0.4s;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+  border-style: none;
+  border-radius: 25px;
+  border-color: black;
+  border-width: medium;
+  display: grid;
+  grid-template-rows: 80px repeat(auto-fill, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   top: 0;
   right: 0;
   bottom: 0;
@@ -491,18 +503,36 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   left: 0;
   position: absolute;
 }
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task {
+  grid-row: 2/3;
+  grid-column: auto;
+  background: white;
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #day-num-selected {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  font-family: inherit;
+  font-size: 3rem;
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  position: absolute;
+  top: 0;
+}
 body #content #content-wrapper .list-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
 }
 body #content #content-wrapper .list-content #add-task {
   border-style: none;
-  border-radius: "none";
-  border-color: "black";
-  border-width: "medium";
+  border-radius: none;
+  border-color: black;
+  border-width: medium;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -572,7 +602,7 @@ body .popup-screen {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: "";
+  gap: 0;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   z-index: 1;
@@ -586,8 +616,8 @@ body .popup-screen .popup-prompt {
           animation-fill-mode: forwards;
   border-style: none;
   border-radius: 25px;
-  border-color: "black";
-  border-width: "medium";
+  border-color: black;
+  border-width: medium;
   width: 500px;
   height: 250px;
   display: flex;
@@ -608,7 +638,7 @@ body .popup-screen .popup-prompt form {
 body .popup-screen .popup-prompt form .input-field {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  gap: "";
+  gap: 0;
 }/*# sourceMappingURL=main.css.map */

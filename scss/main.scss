@@ -7,7 +7,7 @@
 @import 'colors';
 
 * {
-    @include font($main-font);
+    font-family: "Karla";
 }
 
 body {
@@ -16,6 +16,7 @@ body {
     position: relative;
 
     #content {
+        @include dims(auto, 100vh);
         @include grid(1fr 2px 4fr, 1fr 2px 4fr);
         z-index: 0;
     
@@ -220,7 +221,9 @@ body {
                         }
     
                         #day-selected {
-                            @include animation(day-spawn, 0.15s, forwards);
+                            @include animation(day-spawn, 0.4s, forwards);
+                            @include border(none, 25px);
+                            @include grid(80px repeat(auto-fill, 1fr), repeat(4, 1fr));
                             @include location(0, 0, 0, 0);
                             background-color: lightgrey;
                             position: absolute;
@@ -229,6 +232,19 @@ body {
                             button {
                                 @include location(0, auto, auto, 0);
                                 position: absolute;
+                            }
+
+                            .calendar-task {
+                                @include grid-loc(2/#{3});
+                                background: white;
+                            }
+
+                            #day-num-selected {
+                                @include flex(row, center, center);
+                                @include font(inherit, 3rem);
+                                @include grid-loc(1/#{2}, 1/#{-1});
+                                position: absolute;
+                                top: 0;
                             }
                         }
                     }
@@ -304,7 +320,7 @@ body {
                 @include flex(column, space-evenly, center, 10px);
 
                 .input-field {
-                    @include flex(row, space-between, center);
+                    @include flex(row, space-evenly, center);
                 }
             }
         }

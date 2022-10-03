@@ -1,5 +1,7 @@
 export default function Calendar(projectData) {
-    let currentMonth = new Date().getMonth();
+    let currentMonth = new Date().getMonth() + 1;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
     // Adds a new day to the calendar
     function newDay(dayNum) {
@@ -12,8 +14,6 @@ export default function Calendar(projectData) {
     }
 
     function setMonth(month) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
         document.getElementById("month-text").textContent = months[month];
 
         setDays(month);
@@ -66,7 +66,8 @@ export default function Calendar(projectData) {
         const daySelected = document.createElement("div");
         daySelected.setAttribute("id", "day-selected");
         const dayNum = document.createElement("h4");
-        dayNum.textContent = day;
+        dayNum.setAttribute("id", "day-num-selected");
+        dayNum.textContent = `${months[month - 1]} ${day}`;
         daySelected.appendChild(dayNum);
 
         const close = document.createElement("button");
@@ -74,6 +75,24 @@ export default function Calendar(projectData) {
         close.id = "close-day";
         close.className = "button-close";
         daySelected.appendChild(close);
+
+        for (const project of projectData) {
+            for (const projTask of project.tasks) {
+                const taskMonth = Number(projTask.date.split("-")[1]);
+                const taskDay = projTask.date.split("-")[2];
+
+                if (month === taskMonth && day === taskDay) {
+                    console.log(projTask);
+
+                    const task = document.createElement("div");
+                    task.setAttribute("class", "calendar-task");
+                    const taskText = document.createElement("h5");
+                    taskText.textContent = projTask.task;
+                    task.appendChild(taskText);
+                    daySelected.appendChild(task);
+                }
+            }
+        }
 
         document.getElementById("days-wrapper").appendChild(daySelected);
 
@@ -135,8 +154,6 @@ export default function Calendar(projectData) {
     const calHeaders = document.createElement("div");
     calHeaders.setAttribute("id", "calendar-headers");
 
-    const weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-
     for (const weekday of weekdays) {
         const header = document.createElement("h3");
         header.setAttribute("class", "calendar-header");
@@ -169,14 +186,12 @@ export default function Calendar(projectData) {
                 document.getElementById("calendar-days").firstChild.remove();
             }
 
-            const target = (e.target.tagName === "IMG" ? e.target.parentElement.id : e.target.id);
-
-            if (target === "calendar-left") {
-                currentMonth = ((currentMonth - 1) + 12) % 12;
-                setMonth(currentMonth);
-            } else {
+            if (e.currentTarget.id === "calendar-right") {
                 currentMonth = ((currentMonth + 1) + 12) % 12;
-                setMonth(currentMonth);
+                setMonth(currentMonth - 1);
+            } else {
+                currentMonth = ((currentMonth - 1) + 12) % 12;
+                setMonth(currentMonth - 1);
             }
         });
     }

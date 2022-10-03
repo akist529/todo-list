@@ -1,3 +1,5 @@
+import Task from "./task.js";
+
 export default function Inbox(projectData) {
     const inbox = document.createElement("div");
     inbox.setAttribute("id", "inbox");
@@ -42,4 +44,8 @@ export default function Inbox(projectData) {
 
     const content = document.getElementById("content-wrapper");
     content.insertBefore(inbox, content.children[0]);
+
+    document.getElementById("add-task").addEventListener("click", function() {
+        Task(projectData);
+    });
 }

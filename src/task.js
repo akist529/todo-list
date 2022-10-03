@@ -20,8 +20,25 @@ export default function Task(projectData) {
     const taskField = document.createElement("input");
     taskField.setAttribute("id", "task-name");
     taskField.setAttribute("name", "task-name");
+    taskField.setAttribute("placeholder", "New Task");
     logTask.appendChild(taskField);
     form.appendChild(logTask);
+
+    const logDate = document.createElement("div");
+    logDate.setAttribute("class", "input-field");
+
+    const dateLabel = document.createElement("label");
+    dateLabel.setAttribute("for", "date-name");
+    dateLabel.textContent = "Due Date:";
+    logDate.appendChild(dateLabel);
+
+    const dateField = document.createElement("input");
+    dateField.setAttribute("id", "date-name");
+    dateField.setAttribute("name", "date-name");
+    dateField.setAttribute("type", "date");
+    dateField.setAttribute("value", "2022-10-03");
+    logDate.appendChild(dateField);
+    form.appendChild(logDate);
 
     const logProj = document.createElement("div");
     logProj.setAttribute("class", "input-field");
@@ -37,8 +54,8 @@ export default function Task(projectData) {
 
     for (const project of projectData) {
         const option = document.createElement("option");
-        option.value = project.name;
-        option.textContent = project.name;
+        option.value = project.title;
+        option.textContent = project.title;
 
         projField.appendChild(option);
     }
@@ -65,9 +82,20 @@ export default function Task(projectData) {
     document.getElementById("task-submit").addEventListener("click", function(e) {
         e.preventDefault();
 
+        let task = document.getElementById("task-name").value;
+        let date = document.getElementById("date-name").value;
+
+        if (!task) {
+            task = "New Task";
+        }
+
+        const newTask = new Task(task, date);
+
+        const taskProj = document.getElementById("proj-name").value;
+
         for (const project of projectData) {
-            if (project.name === document.getElementById("proj-name").value) {
-                project["tasks"].push(document.getElementById("task-name").value);
+            if (project.title === taskProj) {
+                project["tasks"].push(newTask);
                 break;
             }
         }
@@ -78,4 +106,11 @@ export default function Task(projectData) {
     document.getElementById("close-task").addEventListener("click", function() {
         document.getElementById("task-screen").remove();
     });
+
+    class Task {
+        constructor(task, date) {
+            this.task = task;
+            this.date = date;
+        }
+    }
 }

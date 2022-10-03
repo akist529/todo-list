@@ -7,14 +7,8 @@ import Split from "split-grid";
 import Project from "./project.js";
 import "../dist/css/main.css";
 
-const projectData = [{
-    title: "", 
-    description: "", 
-    selected: true, 
-    tasks: []
-}];
-
 const userData = [];
+const projectData = [];
 
 Header();
 Login(userData);

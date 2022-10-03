@@ -20,6 +20,7 @@ export default function addProject(projectData) {
     const projField = document.createElement("input");
     projField.setAttribute("id", "proj-name");
     projField.setAttribute("name", "proj-name");
+    projField.setAttribute("placeholder", "New Project");
     logProj.appendChild(projField);
     form.appendChild(logProj);
 
@@ -43,7 +44,13 @@ export default function addProject(projectData) {
         document.getElementById("proj-submit").addEventListener("click", function(e) {
             e.preventDefault();
 
-            const projName = document.getElementById("proj-name").value;
+            let projName = document.getElementById("proj-name").value;
+
+            if (!projName) {
+                const projNum = document.getElementById("sidebar-list").childElementCount;
+                projName = `Project ${projNum + 1}`;
+            }
+
             projectData.push(new Project(projName));
 
             const newProj = document.createElement("button");
@@ -59,6 +66,29 @@ export default function addProject(projectData) {
             newProjName.innerHTML = projName;
             newProj.appendChild(newProjName);
 
+            newProj.addEventListener("click", function() {
+                const activeProj = new RegExp("proj-selected");
+                
+                if (!activeProj.test(newProj.classList)) {
+                    newProj.classList.add("proj-selected");
+                    const projName = newProj.childNodes[1].textContent;
+
+                    for (const project of projectData) {
+                        if (project.title === newProj.id) {
+                            project.selected = true;
+                        }
+                    }
+                } else {
+                    newProj.classList.remove("proj-selected");
+
+                    for (const project of projectData) {
+                        if (project.title === newProj.id) {
+                            project.selected = false;
+                        }
+                    }
+                }
+            });
+
             const projectsList = document.getElementById("sidebar-list");
             projectsList.appendChild(newProj);
 
@@ -71,9 +101,10 @@ export default function addProject(projectData) {
     });
 
     class Project {
-        constructor(name) {
-            this.name = name;
-            this.selected = true;
+        constructor(title) {
+            this.title = title;
+            this.description = "";
+            this.selected = false;
             this.tasks = [];
         }
     }

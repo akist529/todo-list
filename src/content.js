@@ -1,7 +1,6 @@
 import Inbox from "./inbox.js";
 import Today from "./today.js";
 import Calendar from "./calendar.js";
-import Task from "./task.js";
 
 export default function Content(projectData) {
     const contentWrap = document.createElement("div");
@@ -60,9 +59,5 @@ export default function Content(projectData) {
     document.getElementById("reset-layout").addEventListener("click", function() {
         document.getElementById("content").style.gridTemplateColumns = "";
         document.getElementById("content").style.gridTemplateRows = "";
-    });
-
-    document.getElementById("add-task").addEventListener("click", function() {
-        Task(projectData);
     });
 }
