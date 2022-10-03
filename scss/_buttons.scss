@@ -1,0 +1,26 @@
+@import 'colors';
+
+.button-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: $close-bg;
+    color: $white-text;
+    font-size: 2rem;
+    font-weight: 700;
+    height: 50px;
+    width: 50px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 10px;
+}
+
+.month-toggle:nth-of-type(1) {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.month-toggle:nth-of-type(2) {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}

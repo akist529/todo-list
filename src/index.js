@@ -22,6 +22,7 @@ Sidebar();
 Content(projectData);
 Gutters();
 Split({
+    maxSize: 200,
     columnGutters: [{
         track: 1,
         element: document.getElementById("gutter-col")

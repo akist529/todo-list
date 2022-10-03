@@ -5,6 +5,7 @@ export default function Sidebar() {
     const inbox = document.createElement("button");
     inbox.setAttribute("id", "sidebar-inbox");
     inbox.setAttribute("class", "sidebar-line");
+    inbox.setAttribute("class", "sidebar-link");
 
     const inboxPic = document.createElement("img");
     inboxPic.setAttribute("src", "../src/images/inbox.png");
@@ -18,6 +19,7 @@ export default function Sidebar() {
     const today = document.createElement("button");
     today.setAttribute("id", "sidebar-today");
     today.setAttribute("class", "sidebar-line");
+    today.setAttribute("class", "sidebar-link");
 
     const todayPic = document.createElement("img");
     todayPic.setAttribute("src", "../src/images/today.png");
@@ -31,6 +33,7 @@ export default function Sidebar() {
     const calendar = document.createElement("button");
     calendar.setAttribute("id", "sidebar-calendar");
     calendar.setAttribute("class", "sidebar-line");
+    calendar.setAttribute("class", "sidebar-link");
 
     const calendarPic = document.createElement("img");
     calendarPic.setAttribute("src", "../src/images/calendar.png");
