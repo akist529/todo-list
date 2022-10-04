@@ -36,3 +36,29 @@
         opacity: 100%;
     }
 }
+
+@keyframes day-spawn {
+    0% {
+        top: 100%;
+        left: 100%;
+    } 100% {
+        top: 0%;
+        left: 0%;
+    }
+}
+
+@keyframes content-despawn {
+    0% {
+        opacity: 100%;
+    } 100% {
+        opacity: 0%;
+    }
+}
+
+@keyframes content-respawn {
+    0% {
+        top: 100%;
+    } 100% {
+        top: 0%;
+    }
+}

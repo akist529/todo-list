@@ -1,137 +1,348 @@
-export default function Calendar(projectData) {
-    let currentMonth = new Date().getMonth();
+import Task from "./task.js";
 
-    // Adds a new day to the calendar
+export default function Calendar(projectData) {
+    let currentMonth = new Date().getMonth() + 1;
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
     function newDay(dayNum) {
         const day = document.createElement("button");
         day.setAttribute("class", "calendar-day");
-        const dayText = document.createElement("h4");
-        dayText.textContent = dayNum;
+
+            const dayText = document.createElement("h4");
+            dayText.textContent = dayNum;
+        
         day.appendChild(dayText);
         return day;
     }
 
     function setMonth(month) {
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-        document.getElementById("month-text").textContent = months[month];
-
+        calMonth.textContent = months[month];
         setDays(month);
     }
 
     function setDays(month) {
-        let numDays;
+        let numDays = (() => {
+            // All months that consist of 30 days
+            const february = 1;
+            const months = [3, 5, 8, 10];
 
-        if (month === 1) {
-            numDays = 28;
-        } else if (month === 3 
-            || month === 5 
-            || month === 8 
-            || month === 10) {
-            numDays = 30;
-        } else {
-            numDays = 31;
-        }
+            // February
+            if (month === 1) {
+                return 28;
+            }
+            // April, June, September, November
+            else if (months.includes(month)) {
+                return 30;
+            }
+            // January, March, May, July, August, October, December
+            else {
+                return 31;
+            }
+        })();
     
         for (let i = 1; i <= numDays; i++) {
-            document.getElementById("calendar-days").appendChild(newDay(i));
+            calDays.appendChild(newDay(i));
+            // Highlight all days within the month (not previous/subsequent months)
+            calDays.lastChild.classList.add("active-day");
         }
 
-        // Add the previous month's final days to fill the calendar
-        let date = new Date();
-        date.setMonth(month);
+        // Add previous month's days to fill the calendar
+        let newDate = new Date();
+        newDate.setMonth(month);
 
-        const dayOffsetBefore = (date.getDay() + 1) - (date % 7);
-        date.setDate(0);
-        let prevOffset = date.getDate();
+        const dayOffsetBefore = (newDate.getDay() + 1) - (newDate.getDate() % 7);
+        newDate.setDate(0);
+        let prevOffset = newDate.getDate();
 
         for (let i = 0; i < dayOffsetBefore; i++) {
-            document.getElementById("calendar-days").prepend(newDay(prevOffset));
+            calDays.prepend(newDay(prevOffset));
+            calDays.firstChild.style.backgroundColor = "darkgrey";
             prevOffset--;
         }
 
-        // Add the next month's beginning days to fill the calendar
-        const dayOffsetAfter = 35 - document.getElementById("calendar-days").childElementCount;
+        // Add next month's days to fill the calendar
+        const dayOffsetAfter = 42 - calDays.childElementCount;
         
         for (let i = 0; i < dayOffsetAfter; i++) {
-            document.getElementById("calendar-days").append(newDay(i + 1));
+            calDays.append(newDay(i + 1));
+            calDays.lastChild.style.backgroundColor = "darkgrey";
+        }
+
+        setButtons();
+    }
+
+    function selectDay(month, day) {
+        const daySelected = document.createElement("div");
+        daySelected.setAttribute("id", "day-selected");
+
+        const dayNum = document.createElement("h4");
+        dayNum.setAttribute("id", "day-num-selected");
+        dayNum.textContent = `${months[month - 1]} ${day}`;
+        daySelected.appendChild(dayNum);
+
+        const addTask = document.createElement("button");
+        addTask.setAttribute("id", "add-task");
+        const addTaskPic = document.createElement("img");
+        addTaskPic.setAttribute("src", "../src/images/add_task.png");
+        addTask.appendChild(addTaskPic);
+        const addTaskText = document.createElement("p");
+        addTaskText.textContent = "Add New Task";
+        addTask.appendChild(addTaskText);
+        daySelected.appendChild(addTask);
+
+        addTask.addEventListener("click", function() {
+            Task(projectData);
+        });
+
+        const close = document.createElement("button");
+        close.innerHTML = "X";
+        close.id = "close-day";
+        close.className = "button-close";
+        daySelected.appendChild(close);
+
+        for (const project of projectData) {
+            for (const projTask of project.tasks) {
+                const taskMonth = Number(projTask.date.split("-")[1]);
+                const taskDay = projTask.date.split("-")[2];
+
+                if (month === taskMonth && day === taskDay) {
+                    const task = document.createElement("div");
+                    task.setAttribute("class", "calendar-task");
+
+                    const taskInfo = document.createElement("div");
+                    taskInfo.setAttribute("class", "task-info");
+
+                    const taskText = document.createElement("h5");
+                    taskText.setAttribute("class", "task-text");
+                    taskText.textContent = projTask.task;
+                    taskInfo.appendChild(taskText);
+
+                    const projInput = document.createElement("select");
+                    projInput.setAttribute("class", "proj-input");
+
+                    for (const project of projectData) {
+                        const option = document.createElement("option");
+                        option.value = project.title;
+                        option.textContent = project.title;
+                
+                        projInput.appendChild(option);
+                    }
+
+                    projInput.addEventListener("change", function() {
+                        for (const project of projectData) {
+                            for (const task of project.tasks) {
+                                console.log(task);
+                                console.log(taskText.textContent);
+
+                                if (task.task === taskText.textContent) {
+                                    console.log("Match!");
+                                }
+                            }
+                        }
+                    });
+
+                    projInput.value = projTask.project;
+                    taskInfo.appendChild(projInput);
+                    task.appendChild(taskInfo);
+
+                    const taskButtons = document.createElement("div");
+                    taskButtons.setAttribute("class", "task-buttons");
+
+                    const taskEdit = document.createElement("button");
+                    taskEdit.setAttribute("class", "task-edit");
+                    taskEdit.setAttribute("title", "Edit task");
+                    const taskEditPic = document.createElement("img");
+                    taskEditPic.setAttribute("src", "../src/images/edit.png");
+                    taskEdit.appendChild(taskEditPic);
+                    taskButtons.appendChild(taskEdit);
+
+                    const taskTime = document.createElement("button");
+                    taskTime.setAttribute("class", "task-time");
+                    taskTime.setAttribute("title", "Change due date");
+                    const taskTimePic = document.createElement("img");
+                    taskTimePic.setAttribute("src", "../src/images/edit_calendar.png");
+                    taskTime.appendChild(taskTimePic);
+                    taskButtons.appendChild(taskTime);
+                    const taskDel = document.createElement("button");
+                    taskDel.setAttribute("class", "task-delete");
+                    taskDel.setAttribute("title", "Delete task");
+                    const taskDelPic = document.createElement("img");
+                    taskDelPic.setAttribute("src", "../src/images/delete.png");
+                    taskDel.appendChild(taskDelPic);
+                    taskButtons.appendChild(taskDel);
+                    task.appendChild(taskButtons);
+                    daySelected.appendChild(task);
+
+                    taskEdit.addEventListener("click", function() {
+                        const prevTask = document.querySelector(".task-text").textContent;
+                        document.querySelector(".task-text").remove();
+
+                        const taskInput = document.createElement("input");
+                        taskInput.setAttribute("class", "task-input");
+                        taskInput.setAttribute("placeholder", prevTask);
+                        taskInput.setAttribute("value", prevTask);
+                        document.querySelector(".task-info").prepend(taskInput);
+                        document.querySelector(".task-input").focus();
+
+                        document.querySelector(".task-input").addEventListener("blur", function() {
+                            const newTask = document.querySelector(".task-input").value;
+                            const projVal = document.querySelector(".proj-input").value;
+
+                            document.querySelector(".task-input").remove();
+                            
+                            const task = document.createElement("h5");
+                            task.setAttribute("class", "task-text");
+                            task.textContent = newTask;
+                            document.querySelector(".task-info").prepend(task);
+
+                            for (const project of projectData) {
+                                for (const task of project.tasks) {
+                                    if (task.task === prevTask) {
+                                        if (project.title = projVal) {
+                                            task.task = newTask;
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+
+                    taskTime.addEventListener("click", function() {
+                        const prevDate = `2022-${taskMonth}-${taskDay}`;
+
+                        const dateInput = document.createElement("input");
+                        dateInput.setAttribute("type", "date");
+                        dateInput.setAttribute("value", prevDate);
+                        dateInput.setAttribute("class", "task-date");
+                        taskInfo.appendChild(dateInput);
+                        document.querySelector(".task-date").focus();
+
+                        dateInput.addEventListener("blur", function() {
+                            const newDate = dateInput.value;
+                            dateInput.remove();
+                            projTask.date = newDate;
+
+                            if (newDate !== prevDate) {
+                                task.remove();
+                            }
+                        });
+                    });
+
+                    taskDel.addEventListener("click", function() {
+                        const indexOfTask = project["tasks"].indexOf(projTask);
+                        project["tasks"].splice(indexOfTask, 1);
+                        task.remove();
+                    });
+                }
+            }
+        }
+
+        document.getElementById("days-wrapper").appendChild(daySelected);
+
+        document.getElementById("close-day").addEventListener("click", function() {
+            document.getElementById("day-selected").remove();
+        });
+    }
+
+    // Show events of a given day if clicked on
+    function setButtons() {
+        for (const button of document.querySelectorAll(".active-day")) {
+            button.addEventListener("click", function() {
+                const selectedDay = button.firstChild.textContent;
+                selectDay(currentMonth, selectedDay);
+            });
         }
     }
 
+    // Append calendar to DOM
     const calendarWrap = document.createElement("div");
-    calendarWrap.setAttribute("id", "calendar-wrapper");
+    calendarWrap.setAttribute("id", "calendar");
     calendarWrap.setAttribute("class", "list-content");
 
-    const title = document.createElement("h1");
-    title.setAttribute("id", "list-title");
-    title.textContent = "Calendar";
+        const title = document.createElement("h1");
+        title.setAttribute("id", "list-title");
+        title.textContent = "Calendar";
+        
     calendarWrap.appendChild(title);
 
-    const calendar = document.createElement("div");
-    calendar.setAttribute("id", "calendar");
+        const calendar = document.createElement("div");
+        calendar.setAttribute("id", "calendar-grid");
 
-    const calMonthWrap = document.createElement("div");
-    calMonthWrap.setAttribute("id", "calendar-month");
+            // Append calendar month to DOM
+            const calMonthWrap = document.createElement("div");
+            calMonthWrap.setAttribute("id", "calendar-month");
 
-    const monthArrowLeft = document.createElement("button");
-    monthArrowLeft.setAttribute("id", "calendar-left");
-    monthArrowLeft.setAttribute("class", "month-toggle");
-    const arrowLeftPic = document.createElement("img");
-    arrowLeftPic.setAttribute("src", "../src/images/keyboard_arrow_left.png");
-    monthArrowLeft.appendChild(arrowLeftPic);
-    calMonthWrap.appendChild(monthArrowLeft);
+                const monthArrowLeft = document.createElement("button");
+                monthArrowLeft.setAttribute("id", "calendar-left");
+                monthArrowLeft.setAttribute("class", "month-toggle");
+                const arrowLeftPic = document.createElement("img");
+                arrowLeftPic.setAttribute("src", "../src/images/keyboard_arrow_left.png");
+                monthArrowLeft.appendChild(arrowLeftPic);
 
-    const calMonth = document.createElement("h2");
-    calMonth.setAttribute("id", "month-text");
-    calMonthWrap.appendChild(calMonth);
+            calMonthWrap.appendChild(monthArrowLeft);
 
-    const monthArrowRight = document.createElement("button");
-    monthArrowRight.setAttribute("id", "calendar-right");
-    monthArrowRight.setAttribute("class", "month-toggle");
-    const arrowRightPic = document.createElement("img");
-    arrowRightPic.setAttribute("src", "../src/images/keyboard_arrow_right.png");
-    monthArrowRight.appendChild(arrowRightPic);
-    calMonthWrap.appendChild(monthArrowRight);
+                const calMonth = document.createElement("h2");
+                calMonth.setAttribute("id", "month-text");
+            
+            calMonthWrap.appendChild(calMonth);
 
-    calendar.appendChild(calMonthWrap);
+                const monthArrowRight = document.createElement("button");
+                monthArrowRight.setAttribute("id", "calendar-right");
+                monthArrowRight.setAttribute("class", "month-toggle");
+                const arrowRightPic = document.createElement("img");
+                arrowRightPic.setAttribute("src", "../src/images/keyboard_arrow_right.png");
+                monthArrowRight.appendChild(arrowRightPic);
 
-    const calHeaders = document.createElement("div");
-    calHeaders.setAttribute("id", "calendar-headers");
+            calMonthWrap.appendChild(monthArrowRight);
 
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                // Allow arrow buttons to control the visible calendar month
+                for (const button of [monthArrowLeft, monthArrowRight]) {
+                    button.addEventListener("click", function(e) {
+                        while (calDays.firstChild) {
+                            calDays.firstChild.remove();
+                        }
 
-    for (const weekday of weekdays) {
-        const header = document.createElement("h3");
-        header.setAttribute("class", "calendar-header");
-        header.textContent = weekday;
-        calHeaders.appendChild(header);
-    }
+                        if (e.currentTarget === monthArrowRight) {
+                            currentMonth = ((currentMonth + 1) + 12) % 12;
+                            setMonth(currentMonth - 1);
+                        } else {
+                            currentMonth = ((currentMonth - 1) + 12) % 12;
+                            setMonth(currentMonth - 1);
+                        }
+                    });
+                }
 
-    calendar.appendChild(calHeaders);
+        calendar.appendChild(calMonthWrap);
 
-    const calDays = document.createElement("div");
-    calDays.setAttribute("id", "calendar-days");
+            // Append calendar weekday headers to DOM
+            const calHeaders = document.createElement("div");
+            calHeaders.setAttribute("id", "calendar-headers");
 
-    calendar.appendChild(calDays);
+            for (const weekday of weekdays) {
+                    const header = document.createElement("h3");
+                    header.setAttribute("class", "calendar-header");
+                    header.textContent = weekday;
+                calHeaders.appendChild(header);
+            }
+
+        calendar.appendChild(calHeaders);
+
+            // Append space for calendar days to DOM
+            const calDayWrap = document.createElement("div");
+            calDayWrap.setAttribute("id", "days-wrapper");
+
+                const calDays = document.createElement("div");
+                calDays.setAttribute("id", "calendar-days");
+
+            calDayWrap.appendChild(calDays);
+
+        calendar.appendChild(calDayWrap);
+
     calendarWrap.appendChild(calendar);
     const list = document.getElementById("content-wrapper");
     list.insertBefore(calendarWrap, list.children[0]);
 
     // Set initial calendar month
     setMonth(new Date().getMonth());
-
-    // Allow arrow buttons to control the visible calendar month
-    for (const button of document.querySelectorAll(".month-toggle")) {
-        button.addEventListener("click", function(e) {
-            const target = (e.target.tagName === "IMG" ? e.target.parentElement.id : e.target.id);
-
-            if (target === "calendar-left") {
-                const prevMonth = months[new Date().getMonth() - 1];
-                setMonth(prevMonth);
-            } else {
-                const nextMonth = months[new Date().getMonth() + 1];
-                setMonth(nextMonth);
-            }
-        });
-    }
 }

@@ -1,45 +1,45 @@
 // Import partial stylesheets
-@import 'reset', 'typography', 'mixins', 'animations', 'colors';
+@import 'reset';
+@import 'typography';
+@import 'mixins';
+@import 'animations';
+@import 'buttons';
+@import 'colors';
 
 * {
-    font-family: $main-font;
+    font-family: "Karla";
 }
 
 body {
+    @include grid(1fr, 1fr);
     background-color: $primary-bg;
+    position: relative;
 
     #content {
+        @include dims(auto, 100vh);
         @include grid(1fr 2px 4fr, 1fr 2px 4fr);
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
         z-index: 0;
     
         #header {
+            @include animation(header-spawn, 1s, forwards);
             @include flex(row, space-around, center);
             @include grid-loc(1/#{2}, 1/#{-1});
-            position: relative;
-            padding: 5px 0 5px 0;
-            z-index: 2;
-        
             background: $primary-bg;
+            padding: 5px 0;
             transform: translateY(-500px);
-            @include animation(header-spawn, 1s, forwards);
+            z-index: 2;
         
             h1 {
                 font-size: 4rem;
             }
         
             #header-buttons {
-                @include flex(row, center, center);
-                gap: 20px;
+                @include flex(row, center, center, 20px);
         
                 button {
-                    padding: 20px 40px;
-
                     @include border(none, 5px);
-                    font-family: $small-font;
-                    font-size: 1rem;
+                    @include font($small-font, 1rem);
+                    padding: 20px 40px;
                 
                     &:hover {
                         scale: 90%;
@@ -47,8 +47,7 @@ body {
                 }
     
                 #login-button {
-                    @include flex(row, center, center);
-                    gap: 10px;
+                    @include flex(row, center, center, 10px);
                 }
                 
                 #menu-button {
@@ -65,22 +64,21 @@ body {
         }
         
         #sidebar {
+            @include animation(sidebar-spawn, 1s, forwards);
             @include grid(repeat(4, minmax(50px, 80px)) auto minmax(50px, 80px), 1fr);
             @include grid-loc(3/#{4}, 1/#{2});
-            position: relative;
-            justify-content: center;
-            z-index: 1;
-            padding: 20px;
-        
             background: $primary-bg;
-            @include animation(sidebar-spawn, 1s, forwards);
+            justify-content: center;
+            margin-left: auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         
             button {
-                @include flex(row, center, center);
-            
-                background-color: $transparent;
-                font-size: 1.25rem;
                 @include border(none, none);
+                @include flex(row, flex-start, center, 10px);
+                @include font(inherit, 1.25rem);
+                background: $transparent;
             
                 &:hover {
                     cursor: pointer;
@@ -106,16 +104,14 @@ body {
             
             #sidebar-list {
                 @include grid-loc(5/#{6}, 1/#{-1});
+                height: auto;
 
                 button {
-                    @include flex(row, center, center);
-                    padding-left: 20%;
-                    gap: 5px;
-
                     @include border(none, none);
-                    font-size: 1.25rem;
-                    font-family: $small-font;
+                    @include flex(row, center, center, 5px);
+                    @include font($small-font, 1.25rem);
                     background-color: $transparent;
+                    padding-left: 20%;
 
                     img {
                         height: 2rem;
@@ -130,88 +126,169 @@ body {
             .projects-closed {
                 display: none;
             }
+
+            div:empty {
+                display: none;
+            }
         }
     
         #content-wrapper {
-            @include grid-loc(3/#{4}, 3/#{4});
-            /*
+            @include animation(list-spawn, 0.5s, forwards);
             @include flex(row, center, center);
-            */
+            @include grid-loc(3/#{4}, 3/#{4});
+            @include min-dims(65vw, 5vh);
+            background: white;
             position: relative;
             z-index: 0;
-
-            background: white;
-            @include animation(list-spawn, 0.5s, forwards);
     
             #reset-layout {
-                position: absolute;
-                bottom: 0%;
-                right: 0%;
-            
-                border: none;
+                @include border(none);
+                @include location(auto, 0%, 0%, auto);
                 background: $transparent;
+                position: absolute;
                 transition: 0.25s;
             
                 &:hover {
-                    bottom: 2%;
-                    right: 2%;
-                    scale: 120%;
-
+                    @include location(auto, 2%, 2%, auto);
                     cursor: pointer;
+                    scale: 120%;
                 }
             }
-    
+
+            #inbox {
+                @include dims(auto, 100%);
+                @include flex(column, center, center);
+                position: relative;
+            }
+
+            #today {
+                @include dims(auto, 100%);
+                @include flex(column, center, center);
+                position: relative;
+            }
+
             #calendar {
-                @include grid(50px 50px 50px 1fr, 1fr);
-            
-                h2, h3, div {
-                    @include flex(row, center, center);
-                }
-    
-                #calendar-month {
-                    @include grid-loc(1/#{2}, 1/#{-1});
-                    @include flex(row, space-evenly, center);
+                @include flex(column, center, center);
+                position: relative;
 
-                    button {
-                        border: none;
-                        padding: 10px;
+                #calendar-grid {
+                    @include dims(auto, 100%);
+                    @include grid(50px 50px 1fr, 1fr);
+                    position: relative;
+    
+                    h2, h3, div {
+                        @include flex(row, center, center);
                     }
-                }
+        
+                    #calendar-month {
+                        @include flex(row, space-between, center);
+                        @include grid-loc(1/#{2}, 1/#{-1});
     
-                #calendar-headers {
-                    @include grid-loc(2/#{3}, 1/#{-1});
-                    @include grid(1fr, repeat(7, 1fr));
-                }
-                
-                #calendar-days {
-                    @include grid-loc(3/#{4}, 1/#{-1});
-                    @include grid(repeat(auto-fill, 1fr), repeat(7, 1fr));
+                        button {
+                            @include border(none);
+                            padding: 10px;
+                        }
+                    }
+        
+                    #calendar-headers {
+                        @include grid(1fr, repeat(7, 1fr));
+                        @include grid-loc(2/#{3}, 1/#{-1});
+                    }
+    
+                    #days-wrapper {
+                        @include border(none, 25px);
+                        @include flex(row, center, stretch);
+                        @include grid-loc(3/#{4}, 1/#{-1});
+                        position: relative;
+                        overflow: hidden;
+    
+                        #calendar-days {
+                            @include grid(repeat(6, 65px), repeat(7, 65px));
+                            position: relative;
+        
+                            button {
+                                @include dims(65px, 65px);
+                                @include font(inherit, 1.5rem);
+                                border: 1px solid rgba(0, 0, 0, 0.1);
+                                transition: 0.25s;
+        
+                                &:hover {
+                                    @include border(none, 15%);
+                                    @include font(inherit, 2.5rem);
+                                    scale: 120%;
+                                }
+                            }
+                        }
+    
+                        #day-selected {
+                            @include animation(day-spawn, 0.4s, forwards);
+                            @include border(none, 25px);
+                            @include grid(0.1fr 0.1fr 0.1fr, 0.9fr);
+                            @include location(0, 0, 0, 0);
+                            background-color: lightgrey;
+                            position: absolute;
+                            z-index: 2;
+                            overflow: scroll;
+                            grid-auto-rows: 0.1fr;
+                            gap: 10px;
 
-                    button {
-                        border: 1px solid rgba(0, 0, 0, 0.1);
-                        height: 100px;
-                        font-size: 1.5rem;
-                        transition: 0.25s;
+                            .calendar-task {
+                                @include border(solid, 0, 2px, rgba(0, 0, 0, 0.4));
+                                @include flex(row, space-between, center, 10px);
+                                @include font(inherit, 1.5rem);
+                                background: white;
+                                padding: 5px;
+                                box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 
-                        &:hover {
-                            border-radius: 15%;
-                            font-size: 2.5rem;
-                            scale: 120%;
+                                button {
+                                    @include border(none);
+                                    background: $transparent;
+
+                                    img {
+                                        height: 2rem;
+                                        transition: 0.2s;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            height: 1.75rem;
+                                        }
+                                    }
+                                }
+
+                                .task-info {
+                                    @include flex(column, flex-start, flex-start, 10px);
+                                }
+                            }
+
+                            #add-task {
+                                @include grid-loc(2/#{3}, 1/#{-1});
+                            }
+
+                            #day-num-selected {
+                                @include flex(row, center, center);
+                                @include font(inherit, 3rem);
+                                @include grid-loc(1/#{2}, 1/#{-1});
+                                position: relative;
+                                top: 0;
+                            }
+
+                            #close-day {
+                                @include location(0, auto, auto, 0);
+                                position: absolute;
+                            }
                         }
                     }
                 }
             }
-    
+
             .list-content {
                 @include flex(column, center, center);
     
                 #add-task {
-                    @include flex(row, center, center);
-                    gap: 10px;
+                    @include border(none);
+                    @include flex(row, center, center, 10px);
+                    @include font(inherit, 1.25rem);
                     padding: 10px 20px;
-                
-                    font-size: 1.25rem;
-                    border: none;
                 
                     img {
                         height: 36px;
@@ -221,83 +298,60 @@ body {
         }
     
         #gutter-col {
+            @include animation(sidebar-spawn, 1s, forwards);
+            @include dims(2px, auto);
             @include grid-loc(3/#{4}, 2/#{3});
+            background: black;
             justify-self: center;
             position: relative;
+            transition: 0.5s;
             z-index: 1;
         
-            background-color: black;
-            width: 2px;
-            transition: 0.5s;
-            @include animation(sidebar-spawn, 1s, forwards);
-        
             &:hover {
+                @include dims(15px, auto);
                 cursor: col-resize;
-                width: 30px;
             }
         }
         
         #gutter-row {
+            @include animation(header-spawn, 1s, forwards);
+            @include dims(auto, 2px);
             @include grid-loc(2/#{3}, 1/#{-1});
             align-self: center;
+            background: black;
             position: relative;
+            transition: 0.5s;
             z-index: 2;
         
-            background-color: black;
-            height: 2px;
-            transition: 0.5s;
-            @include animation(header-spawn, 1s, forwards);
-        
             &:hover {
-                height: 30px;
+                @include dims(auto, 15px);
                 cursor: row-resize;
             }
         }
     }
 
     .popup-screen {
+        @include animation(prompt-spawn, 0.25s, forwards);
+        @include dims(100%, 100%);
+        @include flex(row, center, center);
+        background: $form-bg;
         position: absolute;
         z-index: 1;
 
-        background-color: $form-bg;
-        height: 100vh;
-        width: 100vw;
-        @include animation(prompt-spawn, 0.25s, forwards);
-        @include flex(row, center, center);
-
         .popup-prompt {
-            @include flex(column, center, center);
-            gap: 5px;
-
-            background: white;
-            border-radius: 25px;
-            box-shadow: 5px 5px 20px #000000;
-            height: 250px;
-            width: 500px;
             @include animation(header-spawn, 0.5s, forwards);
+            @include border(none, 25px);
+            @include dims(500px, 250px);
+            @include flex(column, center, center, 5px);
+            background: white;
+            box-shadow: 5px 5px 20px #000000;
 
             form {
-                @include flex(column, space-evenly, center);
-                gap: 10px;
+                @include flex(column, space-evenly, center, 10px);
 
                 .input-field {
-                    @include flex(row, space-between, center);
+                    @include flex(row, space-evenly, center);
                 }
-            }
-
-            .button-close {
-                position: absolute;
-                top: 0;
-                left: 0;
-            
-                background-color: $close-bg;
-                color: $white-text;
-                font-size: 2rem;
-                font-weight: 700;
-                height: 50px;
-                width: 50px;
-                border-top-left-radius: 25px;
-                border-bottom-right-radius: 10px;
             }
         }
     }
