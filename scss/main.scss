@@ -223,27 +223,53 @@ body {
                         #day-selected {
                             @include animation(day-spawn, 0.4s, forwards);
                             @include border(none, 25px);
-                            @include grid(80px repeat(auto-fill, 1fr), repeat(4, 1fr));
+                            @include grid(0.1fr 0.1fr, 0.9fr);
                             @include location(0, 0, 0, 0);
                             background-color: lightgrey;
                             position: absolute;
                             z-index: 2;
-
-                            button {
-                                @include location(0, auto, auto, 0);
-                                position: absolute;
-                            }
+                            overflow: scroll;
+                            grid-auto-rows: 0.1fr;
+                            gap: 10px;
 
                             .calendar-task {
-                                @include grid-loc(2/#{3});
+                                @include border(solid, 0, 2px, rgba(0, 0, 0, 0.4));
+                                @include flex(row, space-between, center, 10px);
+                                @include font(inherit, 1.5rem);
                                 background: white;
+                                padding: 5px;
+                                box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+                                button {
+                                    @include border(none);
+                                    background: $transparent;
+
+                                    img {
+                                        height: 2rem;
+                                        transition: 0.2s;
+
+                                        &:hover {
+                                            cursor: pointer;
+                                            height: 1.75rem;
+                                        }
+                                    }
+                                }
+
+                                .task-info {
+                                    @include flex(column, flex-start, flex-start, 10px);
+                                }
+                            }
+
+                            #close-day {
+                                @include location(0, auto, auto, 0);
+                                position: absolute;
                             }
 
                             #day-num-selected {
                                 @include flex(row, center, center);
                                 @include font(inherit, 3rem);
                                 @include grid-loc(1/#{2}, 1/#{-1});
-                                position: absolute;
+                                position: relative;
                                 top: 0;
                             }
                         }

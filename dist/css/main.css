@@ -351,7 +351,7 @@ body #content #content-wrapper {
 }
 body #content #content-wrapper #reset-layout {
   border-style: none;
-  border-radius: none;
+  border-radius: 0;
   border-color: black;
   border-width: medium;
   top: auto;
@@ -424,7 +424,7 @@ body #content #content-wrapper #calendar #calendar-grid #calendar-month {
 }
 body #content #content-wrapper #calendar #calendar-grid #calendar-month button {
   border-style: none;
-  border-radius: none;
+  border-radius: 0;
   border-color: black;
   border-width: medium;
   padding: 10px;
@@ -486,8 +486,8 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   border-color: black;
   border-width: medium;
   display: grid;
-  grid-template-rows: 80px repeat(auto-fill, 1fr);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 0.1fr 0.1fr;
+  grid-template-columns: 0.9fr;
   top: 0;
   right: 0;
   bottom: 0;
@@ -495,18 +495,54 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   background-color: lightgrey;
   position: absolute;
   z-index: 2;
+  overflow: scroll;
+  grid-auto-rows: 0.1fr;
+  gap: 10px;
 }
-body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected button {
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task {
+  border-style: solid;
+  border-radius: 0;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-width: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 1.5rem;
+  background: white;
+  padding: 5px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task button {
+  border-style: none;
+  border-radius: 0;
+  border-color: black;
+  border-width: medium;
+  background: rgba(0, 0, 0, 0);
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task button img {
+  height: 2rem;
+  transition: 0.2s;
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task button img:hover {
+  cursor: pointer;
+  height: 1.75rem;
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task .task-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #close-day {
   top: 0;
   right: auto;
   bottom: auto;
   left: 0;
   position: absolute;
-}
-body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected .calendar-task {
-  grid-row: 2/3;
-  grid-column: auto;
-  background: white;
 }
 body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #day-num-selected {
   display: flex;
@@ -518,7 +554,7 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   font-size: 3rem;
   grid-row: 1/2;
   grid-column: 1/-1;
-  position: absolute;
+  position: relative;
   top: 0;
 }
 body #content #content-wrapper .list-content {
@@ -530,7 +566,7 @@ body #content #content-wrapper .list-content {
 }
 body #content #content-wrapper .list-content #add-task {
   border-style: none;
-  border-radius: none;
+  border-radius: 0;
   border-color: black;
   border-width: medium;
   display: flex;

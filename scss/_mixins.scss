@@ -39,7 +39,7 @@
     left: $left;
 }
 
-@mixin border($style:none, $radius:none, $width:medium, $color:black) {
+@mixin border($style:none, $radius:0, $width:medium, $color:black) {
     border-style: $style;
     border-radius: $radius;
     border-color: $color;

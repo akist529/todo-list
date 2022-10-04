@@ -3,7 +3,6 @@ export default function Calendar(projectData) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
-    // Adds a new day to the calendar
     function newDay(dayNum) {
         const day = document.createElement("button");
         day.setAttribute("class", "calendar-day");
@@ -15,29 +14,35 @@ export default function Calendar(projectData) {
 
     function setMonth(month) {
         document.getElementById("month-text").textContent = months[month];
-
         setDays(month);
     }
 
     function setDays(month) {
         let numDays = (() => {
+            // All months that consist of 30 days
             const months = [3, 5, 8, 10];
 
+            // February
             if (month === 1) {
                 return 28;
-            } else if (months.includes(month)) {
+            }
+            // April, June, September, November
+            else if (months.includes(month)) {
                 return 30;
-            } else {
+            }
+            // January, March, May, July, August, October, December
+            else {
                 return 31;
             }
         })();
     
         for (let i = 1; i <= numDays; i++) {
             document.getElementById("calendar-days").appendChild(newDay(i));
+            // Highlight all days within the month (not previous/subsequent months)
             document.getElementById("calendar-days").lastChild.classList.add("active-day");
         }
 
-        // Add the previous month's final days to fill the calendar
+        // Add previous month's days to fill the calendar
         let newDate = new Date();
         newDate.setMonth(month);
 
@@ -51,7 +56,7 @@ export default function Calendar(projectData) {
             prevOffset--;
         }
 
-        // Add the next month's beginning days to fill the calendar
+        // Add next month's days to fill the calendar
         const dayOffsetAfter = 42 - document.getElementById("calendar-days").childElementCount;
         
         for (let i = 0; i < dayOffsetAfter; i++) {
@@ -82,13 +87,108 @@ export default function Calendar(projectData) {
                 const taskDay = projTask.date.split("-")[2];
 
                 if (month === taskMonth && day === taskDay) {
-                    console.log(projTask);
-
                     const task = document.createElement("div");
                     task.setAttribute("class", "calendar-task");
+
+                    const taskInfo = document.createElement("div");
+                    taskInfo.setAttribute("class", "task-info");
+
                     const taskText = document.createElement("h5");
+                    taskText.setAttribute("class", "task-text");
                     taskText.textContent = projTask.task;
-                    task.appendChild(taskText);
+                    taskInfo.appendChild(taskText);
+
+                    const projInput = document.createElement("select");
+                    projInput.setAttribute("class", "proj-input");
+
+                    for (const project of projectData) {
+                        const option = document.createElement("option");
+                        option.value = project.title;
+                        option.textContent = project.title;
+                
+                        projInput.appendChild(option);
+                    }
+
+                    projInput.addEventListener("change", function() {
+                        for (const project of projectData) {
+                            for (const task of project.tasks) {
+                                console.log(task);
+                                console.log(taskText.textContent);
+
+                                if (task.task === taskText.textContent) {
+                                    console.log("Match!");
+                                }
+                            }
+                        }
+                    });
+
+                    projInput.value = projTask.project;
+                    taskInfo.appendChild(projInput);
+                    task.appendChild(taskInfo);
+
+                    const taskButtons = document.createElement("div");
+                    taskButtons.setAttribute("class", "task-buttons");
+
+                    const taskEdit = document.createElement("button");
+                    taskEdit.setAttribute("class", "task-edit");
+                    taskEdit.setAttribute("title", "Edit task");
+                    const taskEditPic = document.createElement("img");
+                    taskEditPic.setAttribute("src", "../src/images/edit.png");
+                    taskEdit.appendChild(taskEditPic);
+
+                    taskEdit.addEventListener("click", function() {
+                        const prevTask = document.querySelector(".task-text").textContent;
+                        document.querySelector(".task-text").remove();
+
+                        const taskInput = document.createElement("input");
+                        taskInput.setAttribute("class", "task-input");
+                        taskInput.setAttribute("placeholder", prevTask);
+                        taskInput.setAttribute("value", prevTask);
+                        document.querySelector(".task-info").prepend(taskInput);
+                        document.querySelector(".task-input").focus();
+
+                        document.querySelector(".task-input").addEventListener("blur", function() {
+                            const newTask = document.querySelector(".task-input").value;
+                            const projVal = document.querySelector(".proj-input").value;
+
+                            document.querySelector(".task-input").remove();
+                            
+                            const task = document.createElement("h5");
+                            task.setAttribute("class", "task-text");
+                            task.textContent = newTask;
+                            document.querySelector(".task-info").prepend(task);
+
+                            for (const project of projectData) {
+                                for (const task of project.tasks) {
+                                    if (task.task === prevTask) {
+                                        if (project.title = projVal) {
+                                            task.task = newTask;
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+
+                    taskButtons.appendChild(taskEdit);
+
+                    const taskTime = document.createElement("button");
+                    taskTime.setAttribute("class", "task-time");
+                    taskTime.setAttribute("title", "Change due date");
+                    const taskTimePic = document.createElement("img");
+                    taskTimePic.setAttribute("src", "../src/images/edit_calendar.png");
+                    taskTime.appendChild(taskTimePic);
+                    taskButtons.appendChild(taskTime);
+
+                    const taskDel = document.createElement("button");
+                    taskDel.setAttribute("class", "task-delete");
+                    taskDel.setAttribute("title", "Delete task");
+                    const taskDelPic = document.createElement("img");
+                    taskDelPic.setAttribute("src", "../src/images/delete.png");
+                    taskDel.appendChild(taskDelPic);
+                    taskButtons.appendChild(taskDel);
+
+                    task.appendChild(taskButtons);
                     daySelected.appendChild(task);
                 }
             }

@@ -84,12 +84,13 @@ export default function Task(projectData) {
 
         let task = document.getElementById("task-name").value;
         let date = document.getElementById("date-name").value;
+        let project = document.getElementById("proj-name").value;
 
         if (!task) {
             task = "New Task";
         }
 
-        const newTask = new Task(task, date);
+        const newTask = new Task(task, date, project);
 
         const taskProj = document.getElementById("proj-name").value;
 
@@ -108,9 +109,10 @@ export default function Task(projectData) {
     });
 
     class Task {
-        constructor(task, date) {
+        constructor(task, date, project) {
             this.task = task;
             this.date = date;
+            this.project = project;
         }
     }
 }
