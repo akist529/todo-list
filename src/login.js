@@ -1,99 +1,133 @@
+import Account from "./account.js";
+
 export default function Login(userData) {
-    const loginScreen = document.createElement("div");
-    loginScreen.setAttribute("id", "login-screen");
-    loginScreen.setAttribute("class", "popup-screen");
+    // Shorthand function for document.getElementById()
+    const $ = function(id) {
+        return document.getElementById(id);
+    };
 
-    const loginPrompt = document.createElement("div");
-    loginPrompt.setAttribute("id", "login-prompt");
-    loginPrompt.setAttribute("class", "popup-prompt");
+    function loginDOM() {
+        const loginScreen = document.createElement("div");
+        loginScreen.setAttribute("id", "login-screen");
+        loginScreen.setAttribute("class", "popup-screen");
+    
+            const loginPrompt = document.createElement("div");
+            loginPrompt.setAttribute("id", "login-prompt");
+            loginPrompt.setAttribute("class", "popup-prompt");
+    
+                const loginHeader = document.createElement("h1");
+                loginHeader.setAttribute("id", "login-header");
 
-    const loginHeader = document.createElement("h1");
-    loginHeader.setAttribute("id", "login-header");
-    loginHeader.textContent = "Sign in to Do_It";
-    loginPrompt.appendChild(loginHeader);
+                const form = document.createElement("form");
 
-    const form = document.createElement("form");
+                    const logName = document.createElement("div");
+                    logName.className = "input-field";
 
-    const logName = document.createElement("div");
-    logName.className = "input-field";
+                        const nameLabel = document.createElement("label");
+                        nameLabel.setAttribute("id", "name-label");
+                        nameLabel.setAttribute("for", "login-name");
 
-    const nameLabel = document.createElement("label");
-    nameLabel.textContent = "Name:";
-    nameLabel.setAttribute("for", "login-name");
-    logName.appendChild(nameLabel);
+                        const nameField = document.createElement("input");
+                        nameField.setAttribute("id", "login-name");
+                        nameField.setAttribute("name", "login-name");
 
-    const nameField = document.createElement("input");
-    nameField.setAttribute("id", "login-name");
-    nameField.setAttribute("name", "login-name");
-    logName.appendChild(nameField);
-    form.appendChild(logName);
+                    logName.appendChild(nameLabel);
+                    logName.appendChild(nameField);
 
-    const logPass = document.createElement("div");
-    logPass.className = "login-field";
+                    const logPass = document.createElement("div");
+                    logPass.className = "login-field";
 
-    const passLabel = document.createElement("label");
-    passLabel.textContent = "Password:";
-    passLabel.setAttribute("for", "login-pass");
-    logPass.appendChild(passLabel);
+                        const passLabel = document.createElement("label");
+                        passLabel.setAttribute("id", "pass-label");
+                        passLabel.setAttribute("for", "login-pass");
 
-    const passField = document.createElement("input");
-    passField.setAttribute("id", "login-pass");
-    passField.setAttribute("name", "login-pass");
-    logPass.appendChild(passField);
-    form.appendChild(logPass);
+                        const passField = document.createElement("input");
+                        passField.setAttribute("id", "login-pass");
+                        passField.setAttribute("name", "login-pass");
 
-    const loginSubmit = document.createElement("input");
-    loginSubmit.setAttribute("id", "login-submit");
-    loginSubmit.setAttribute("type", "submit");
-    loginSubmit.setAttribute("value", "LOG IN");
-    form.appendChild(loginSubmit);
-    loginPrompt.appendChild(form);
+                    logPass.appendChild(passLabel);
+                    logPass.appendChild(passField);
 
-    const createAccount = document.createElement("p");
-    createAccount.innerHTML = "New user? Create an account here!";
-    loginPrompt.appendChild(createAccount);
+                    const loginSubmit = document.createElement("input");
+                    loginSubmit.setAttribute("id", "login-submit");
+                    loginSubmit.setAttribute("type", "submit");
+                    loginSubmit.setAttribute("value", "LOG IN");
 
-    const close = document.createElement("button");
-    close.innerHTML = "X";
-    close.id = "close-login";
-    close.className = "button-close";
-    loginPrompt.appendChild(close);
+                form.appendChild(logName);
+                form.appendChild(logPass);
+                form.appendChild(loginSubmit);
 
-    loginScreen.appendChild(loginPrompt);
+                const accountLink = document.createElement("a");
+                accountLink.setAttribute("id", "account-link");
+                accountLink.setAttribute("href", "");
+                accountLink.setAttribute("target", "_blank");
 
-    document.getElementById("login-button").addEventListener("click", function() {
+                const createAccount = document.createElement("p");
+                createAccount.innerHTML = "New user? Create an account ";
+                createAccount.appendChild(accountLink);
+                accountLink.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    Account();
+                });
+
+                const close = document.createElement("button");
+                close.setAttribute("id", "close-login");
+                close.setAttribute("class", "button-close");
+
+            loginPrompt.appendChild(loginHeader);
+            loginPrompt.appendChild(form);
+            loginPrompt.appendChild(createAccount);
+            loginPrompt.appendChild(close);
+
+        loginScreen.appendChild(loginPrompt);
         document.body.appendChild(loginScreen);
+    }
 
-        document.getElementById("login-submit").addEventListener("click", function(e) {
-            e.preventDefault();
+    function loginText() {
+        $("login-header").innerText = "Sign in to Do_It";
+        $("name-label").innerText = "Name:";
+        $("pass-label").innerText = "Password:";
+        $("account-link").innerText = "here";
+        $("close-login").innerText = "X";
+    }
 
-            const userEntered = document.getElementById("login-name").value;
-            const userCheck = false;
-
-            for (const user of userData) {
-                if (user.name === userEntered) {
-                    document.getElementById("login-button").children[1].textContent = `Hello, ${userEntered}`;
-                    document.getElementById("login-screen").remove();
-                    userCheck = true;
-                    break;
+    function loginEvents() {
+        $("login-button").addEventListener("click", function() {
+            $("login-submit").addEventListener("click", function(e) {
+                e.preventDefault();
+    
+                let userCheck = false;
+    
+                for (const user of userData) {
+                    if (user.name === $("login-name").value) {
+                        $("login-button").children[1].textContent = `Hello, ${userEntered}`;
+                        $("login-screen").remove();
+                        userCheck = true;
+                        break;
+                    }
                 }
-            }
-
-            if (!userCheck) {
-                const prompt = document.getElementById("login-prompt");
-                const error = document.createElement("p");
-                error.textContent = "This user does not exist";
-                prompt.insertBefore(error, prompt.children[2]);
-            }
-
-            document.getElementById("login-name").value = "";
-            document.getElementById("login-pass").value = "";
+    
+                if (!userCheck) {
+                    const error = document.createElement("p");
+                    error.innerText = "This user does not exist";
+                    loginPrompt.insertBefore(error, $("login-prompt").children[2]);
+                }
+    
+                $("login-name").value = "";
+                $("login-pass").value = "";
+            });
+    
+            $("close-login").addEventListener("click", function() {
+                $("login-name").value = "";
+                $("login-pass").value = "";
+                $("login-screen").remove();
+            });
         });
+    }
 
-        document.getElementById("close-login").addEventListener("click", function() {
-            document.getElementById("login-name").value = "";
-            document.getElementById("login-pass").value = "";
-            document.getElementById("login-screen").remove();
-        });
-    });
+    (() => {
+        loginDOM();
+        loginText();
+        loginEvents();
+    })();
 }

@@ -1,5 +1,4 @@
 import Header from "./header.js";
-import Login from "./login.js";
 import Sidebar from "./sidebar.js";
 import Content from "./content.js";
 import Gutters from "./gutters.js";
@@ -10,8 +9,7 @@ import "../dist/css/main.css";
 const userData = [];
 const projectData = [];
 
-Header();
-Login(userData);
+Header(userData);
 Sidebar();
 Content(projectData);
 Gutters();

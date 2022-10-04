@@ -223,7 +223,7 @@ body {
                         #day-selected {
                             @include animation(day-spawn, 0.4s, forwards);
                             @include border(none, 25px);
-                            @include grid(0.1fr 0.1fr, 0.9fr);
+                            @include grid(0.1fr 0.1fr 0.1fr, 0.9fr);
                             @include location(0, 0, 0, 0);
                             background-color: lightgrey;
                             position: absolute;
@@ -260,9 +260,8 @@ body {
                                 }
                             }
 
-                            #close-day {
-                                @include location(0, auto, auto, 0);
-                                position: absolute;
+                            #add-task {
+                                @include grid-loc(2/#{3}, 1/#{-1});
                             }
 
                             #day-num-selected {
@@ -271,6 +270,11 @@ body {
                                 @include grid-loc(1/#{2}, 1/#{-1});
                                 position: relative;
                                 top: 0;
+                            }
+
+                            #close-day {
+                                @include location(0, auto, auto, 0);
+                                position: absolute;
                             }
                         }
                     }

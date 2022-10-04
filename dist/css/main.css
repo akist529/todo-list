@@ -486,7 +486,7 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   border-color: black;
   border-width: medium;
   display: grid;
-  grid-template-rows: 0.1fr 0.1fr;
+  grid-template-rows: 0.1fr 0.1fr 0.1fr;
   grid-template-columns: 0.9fr;
   top: 0;
   right: 0;
@@ -537,12 +537,9 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   align-items: flex-start;
   gap: 10px;
 }
-body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #close-day {
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  position: absolute;
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #add-task {
+  grid-row: 2/3;
+  grid-column: 1/-1;
 }
 body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #day-num-selected {
   display: flex;
@@ -556,6 +553,13 @@ body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selec
   grid-column: 1/-1;
   position: relative;
   top: 0;
+}
+body #content #content-wrapper #calendar #calendar-grid #days-wrapper #day-selected #close-day {
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  position: absolute;
 }
 body #content #content-wrapper .list-content {
   display: flex;

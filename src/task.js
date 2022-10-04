@@ -3,96 +3,101 @@ export default function Task(projectData) {
     taskScreen.setAttribute("id", "task-screen");
     taskScreen.setAttribute("class", "popup-screen");
 
-    const taskPrompt = document.createElement("div");
-    taskPrompt.setAttribute("id", "task-prompt");
-    taskPrompt.setAttribute("class", "popup-prompt");
+        const taskPrompt = document.createElement("div");
+        taskPrompt.setAttribute("id", "task-prompt");
+        taskPrompt.setAttribute("class", "popup-prompt");
 
-    const form = document.createElement("form");
+            const form = document.createElement("form");
 
-    const logTask = document.createElement("div");
-    logTask.setAttribute("class", "input-field");
+                const logTask = document.createElement("div");
+                logTask.setAttribute("class", "input-field");
 
-    const taskLabel = document.createElement("label");
-    taskLabel.setAttribute("for", "task-name");
-    taskLabel.textContent = "Task:";
-    logTask.appendChild(taskLabel);
+                    const taskLabel = document.createElement("label");
+                    taskLabel.setAttribute("for", "task-name");
+                    taskLabel.textContent = "Task:";
 
-    const taskField = document.createElement("input");
-    taskField.setAttribute("id", "task-name");
-    taskField.setAttribute("name", "task-name");
-    taskField.setAttribute("placeholder", "New Task");
-    logTask.appendChild(taskField);
-    form.appendChild(logTask);
+                    const taskField = document.createElement("input");
+                    taskField.setAttribute("id", "task-name");
+                    taskField.setAttribute("name", "task-name");
+                    taskField.setAttribute("placeholder", "New Task");
 
-    const logDate = document.createElement("div");
-    logDate.setAttribute("class", "input-field");
+                logTask.appendChild(taskLabel);
+                logTask.appendChild(taskField);
 
-    const dateLabel = document.createElement("label");
-    dateLabel.setAttribute("for", "date-name");
-    dateLabel.textContent = "Due Date:";
-    logDate.appendChild(dateLabel);
+                const logDate = document.createElement("div");
+                logDate.setAttribute("class", "input-field");
 
-    const dateField = document.createElement("input");
-    dateField.setAttribute("id", "date-name");
-    dateField.setAttribute("name", "date-name");
-    dateField.setAttribute("type", "date");
-    dateField.setAttribute("value", "2022-10-03");
-    logDate.appendChild(dateField);
-    form.appendChild(logDate);
+                    const dateLabel = document.createElement("label");
+                    dateLabel.setAttribute("for", "date-name");
+                    dateLabel.textContent = "Due Date:";
 
-    const logProj = document.createElement("div");
-    logProj.setAttribute("class", "input-field");
+                    const dateField = document.createElement("input");
+                    dateField.setAttribute("id", "date-name");
+                    dateField.setAttribute("name", "date-name");
+                    dateField.setAttribute("type", "date");
+                    dateField.setAttribute("value", "2022-10-03");
 
-    const projLabel = document.createElement("label");
-    projLabel.setAttribute("for", "proj-name");
-    projLabel.textContent = "Project:";
-    logProj.appendChild(projLabel);
+                logDate.appendChild(dateLabel);
+                logDate.appendChild(dateField);
 
-    const projField = document.createElement("select");
-    projField.setAttribute("id", "proj-name");
-    projField.setAttribute("name", "proj-name");
+                const logProj = document.createElement("div");
+                logProj.setAttribute("class", "input-field");
 
-    for (const project of projectData) {
-        const option = document.createElement("option");
-        option.value = project.title;
-        option.textContent = project.title;
+                    const projLabel = document.createElement("label");
+                    projLabel.setAttribute("for", "proj-name");
+                    projLabel.textContent = "Project:";
 
-        projField.appendChild(option);
-    }
+                    const projField = document.createElement("select");
+                    projField.setAttribute("id", "proj-name");
+                    projField.setAttribute("name", "proj-name");
 
-    logProj.appendChild(projField);
-    form.appendChild(logProj);
+                        for (const project of projectData) {
+                            const option = document.createElement("option");
+                            option.value = project.title;
+                            option.textContent = project.title;
 
-    const taskSubmit = document.createElement("input");
-    taskSubmit.setAttribute("id", "task-submit");
-    taskSubmit.setAttribute("type", "submit");
-    taskSubmit.setAttribute("value", "ADD TASK");
-    form.appendChild(taskSubmit);
-    taskPrompt.appendChild(form);
+                            projField.appendChild(option);
+                        }
 
-    const close = document.createElement("button");
-    close.innerHTML = "X";
-    close.id = "close-task";
-    close.className = "button-close";
-    taskPrompt.appendChild(close);
+                logProj.appendChild(projLabel);
+                logProj.appendChild(projField);
+
+                const taskSubmit = document.createElement("input");
+                taskSubmit.setAttribute("id", "task-submit");
+                taskSubmit.setAttribute("type", "submit");
+                taskSubmit.setAttribute("value", "ADD TASK");
+
+            form.appendChild(logTask);
+            form.appendChild(logDate);
+            form.appendChild(logProj);
+            form.appendChild(taskSubmit);
+
+            const close = document.createElement("button");
+            close.setAttribute("id", "close-task");
+            close.setAttribute("class", "button-close");
+            close.innerHTML = "X";
+            close.addEventListener("click", function() {
+                taskScreen.remove();
+            });
+
+        taskPrompt.appendChild(form);
+        taskPrompt.appendChild(close);
+
     taskScreen.appendChild(taskPrompt);
-
     document.body.appendChild(taskScreen);
 
     document.getElementById("task-submit").addEventListener("click", function(e) {
         e.preventDefault();
 
-        let task = document.getElementById("task-name").value;
-        let date = document.getElementById("date-name").value;
-        let project = document.getElementById("proj-name").value;
+        let task = taskField.value;
+        let date = dateField.value;
+        let taskProj = projField.value;
 
         if (!task) {
             task = "New Task";
         }
 
-        const newTask = new Task(task, date, project);
-
-        const taskProj = document.getElementById("proj-name").value;
+        const newTask = new Task(task, date, taskProj);
 
         for (const project of projectData) {
             if (project.title === taskProj) {
@@ -101,11 +106,7 @@ export default function Task(projectData) {
             }
         }
 
-        document.getElementById("task-screen").remove();
-    });
-
-    document.getElementById("close-task").addEventListener("click", function() {
-        document.getElementById("task-screen").remove();
+        taskScreen.remove();
     });
 
     class Task {
